@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>X Export</title><link rel="stylesheet" href="ui.css"></head>
+<body class="popup">
+  <header class="popup-header"><div class="brand"><img class="brand-mark" src="icons/48.png" alt=""><div><div class="brand-name">X Export<span style="color:#83917e">.</span></div><div class="brand-sub">发文留存</div></div></div><span class="pill">本地处理</span></header>
+  <main>
+    <div class="popup-hero"><h1>好文字，<br>值得好好留存。</h1><p>把 X 的帖子与长文，变成一份<br>随时重读、分享和收藏的文档。</p></div>
+    <div class="format-glance" aria-label="支持的导出格式">
+      <div class="glance-card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M5 15V9l3 3 3-3v6m3-3 2 3 2-3m-2 3V9"/></svg><strong>Markdown</strong><span>轻量 · 可编辑</span></div>
+      <div class="glance-card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m8 7-5 5 5 5m8-10 5 5-5 5M14 5l-4 14"/></svg><strong>HTML</strong><span>精美 · 可离线</span></div>
+      <div class="glance-card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9zM14 3v6h6M8 13h8m-8 4h5"/></svg><strong>PDF</strong><span>排版 · 易分享</span></div>
+    </div>
+    <div class="site-indicator"><span class="dot"></span><span id="site-status">正在检查当前页面…</span></div>
+    <p class="note">使用前提：当前 Chrome 已登录 X 账号。</p>
+    <div id="status" class="status" role="status" aria-live="polite"></div>
+    <button id="capture" class="primary" disabled><span id="capture-label">读取当前发文</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></button>
+  </main>
+  <footer class="popup-footer"><span>复用当前登录态 · 无需 API Key</span><a href="preview.html?demo=1" target="_blank" rel="noopener">体验示例 ↗</a></footer>
+  <script type="module" src="popup.js"></script>
+</body></html>
