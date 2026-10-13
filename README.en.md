@@ -25,7 +25,7 @@ Only already-loaded content visible to your account is read. The current post is
 
 Required: `activeTab`, `scripting`, `storage`, `downloads`. Optional: `https://pbs.twimg.com/*`, requested when embedding images in an HTML/PDF export. Decline to keep text and original-image links instead. Markdown never requests image access.
 
-No developer backend, analytics, ads, account credentials or remote executable code. Documents use temporary extension session storage; layout/language preferences use local storage, not Sync. Help & privacy lets you clear captured documents and invalidate their previews. Downloaded files are managed separately. Preview images and explicit embeds contact X's CDN. See the [bundled bilingual privacy policy](extension/privacy.html).
+No developer backend, analytics, ads, account credentials or remote executable code. Documents use temporary extension session storage; layout/language preferences use local storage, not Sync. Help & privacy lets you clear captured documents and invalidate their previews. Downloaded files are managed separately. Preview images and explicit embeds contact X's CDN. See the [public bilingual privacy policy](https://leondevlifelog.github.io/x-export/privacy.html) and [support page](https://leondevlifelog.github.io/x-export/support.html). Contact the maintainer through [GitHub Issues](https://github.com/LeonDevLifeLog/x-export/issues).
 
 ## Develop and prepare a submission
 
@@ -44,6 +44,6 @@ npm run store:bundle
 
 Set `PLAYWRIGHT_CHROMIUM_EXECUTABLE` to an existing automation browser if needed. Browser scripts use isolated temporary profiles. `npm run dev` serves the original demo at `http://127.0.0.1:4173/preview.html?demo=1`.
 
-The submission kit includes bilingual listing copy, permission/data declarations, reviewer instructions, a draft public website, 10 actual UI screenshots, a store icon and two promotional images. Upload only `dist/x-export-v1.1.0.zip`. The separate `x-export-webstore-v1.1.0.zip` is a materials handoff archive.
+The submission kit includes bilingual listing copy, permission/data declarations, reviewer instructions, public website source, 10 actual UI screenshots, a store icon and two promotional images. Upload only `dist/x-export-v1.1.0.zip`. The separate `x-export-webstore-v1.1.0.zip` is a materials handoff archive.
 
-Public policy/support URLs are intentionally pending. Developer-account setup and manual toolbar/optional-permission/native-dialog verification remain pre-submission steps. Local automation does not establish store approval. See [VERIFICATION.md](VERIFICATION.md) for evidence and limitations.
+Public policy/support URLs are recorded in `store/metadata.json`. GitHub Pages deploys `store/site` using `.github/workflows/pages.yml` when those files change on `main`, or through manual workflow dispatch. Developer-account setup and the remaining personal Chrome checks still precede store submission. Local validation and website publication do not establish store approval. See [VERIFICATION.md](VERIFICATION.md) for evidence and limitations.

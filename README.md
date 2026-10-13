@@ -4,7 +4,9 @@
 
 [English](README.en.md) · [商店提交指南](store/SUBMISSION.md) · [MVP 发布基线](docs/MVP.md)
 
-当前版本 **1.1.0**。已准备 Chrome Web Store 提交材料；公开网址按用户要求留待补充，尚未提交审核或上架。
+当前版本 **1.1.0**。已准备 Chrome Web Store 提交材料；尚未提交审核或上架。
+
+[隐私政策](https://leondevlifelog.github.io/x-export/privacy.html) · [帮助与支持](https://leondevlifelog.github.io/x-export/support.html) · [问题反馈](https://github.com/LeonDevLifeLog/x-export/issues)
 
 ## 安装
 
@@ -97,9 +99,11 @@ npm run dev
 
 ## 商店材料
 
-执行 `npm run build`、`npm run store:assets`、`npm run store:check`、`npm run store:bundle`，得到发行 ZIP 和完整移交包。商店素材在 `store/assets`，中英文各 5 张实际界面截图，另有图标与两种尺寸宣传图；长描述、隐私披露、权限理由、审核测试步骤和待托管网站在 `store/`。
+执行 `npm run build`、`npm run store:assets`、`npm run store:check`、`npm run store:bundle`，得到发行 ZIP 和完整移交包。商店素材在 `store/assets`，中英文各 5 张实际界面截图，另有图标与两种尺寸宣传图；长描述、隐私披露、权限理由、审核测试步骤和公开网站源文件在 `store/`。
 
-**提交只上传 `dist/x-export-v1.1.0.zip`**，完整材料包 `dist/x-export-webstore-v1.1.0.zip` 用于移交。公开政策和支持网址、开发者账户、原生权限/打印/保存验收仍为发布前步骤，具体见 [提交指南](store/SUBMISSION.md)。
+**提交只上传 `dist/x-export-v1.1.0.zip`**，完整材料包 `dist/x-export-webstore-v1.1.0.zip` 用于移交。公开政策和支持网址已填写到 `store/metadata.json`；开发者账户与尚未覆盖的个人 Chrome 验收仍为发布前步骤，具体见 [提交指南](store/SUBMISSION.md)。
+
+GitHub Pages 使用 `.github/workflows/pages.yml` 发布 `store/site`。推送该目录或 workflow 的改动到 `main` 会自动部署，也可在 Actions 中手动运行。政策的公开版与扩展随包版保持正文一致。
 
 ## 结构
 
@@ -119,7 +123,7 @@ extension/
   privacy.html           随包双语隐私政策
   lib/download.js        Chrome 文件下载
   lib/demo.js            本地示例
-store/                   商店文案、公开网站草稿与实际界面素材
+store/                   商店文案、公开网站源文件与实际界面素材
 scripts/                 构建、检查、示例预览、商店素材与材料打包
 tests/                   导出边界检查与浏览器场景
 artifacts/               测试输出与截图（不进入扩展）

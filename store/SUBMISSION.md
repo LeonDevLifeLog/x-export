@@ -1,6 +1,6 @@
 # Chrome Web Store 提交指南 · X Export 1.1.0
 
-本目录是提交材料，不代表已向商店提交。源码仓库保持私有。公开网址按用户要求留待补充。
+本目录是提交材料，不代表已向商店提交。源码仓库现已公开，政策及支持页面通过 GitHub Pages 发布。
 
 ## 文件对应关系
 
@@ -21,13 +21,19 @@
 
 截图来自发行扩展的实际界面，使用本项目原创示例，不含个人登录资料或他人文章。截图建议顺序：paper → minimal → midnight → markdown → help。全局宣传图不随语言切换；本包采用英文品牌文案。YouTube 宣传视频暂未制作，MVP 不依赖视频；以后台实际字段要求为准。
 
+## 公开网址
+
+- Privacy policy URL：[https://leondevlifelog.github.io/x-export/privacy.html](https://leondevlifelog.github.io/x-export/privacy.html)。包含英文与简体中文。
+- Support URL：[https://leondevlifelog.github.io/x-export/support.html](https://leondevlifelog.github.io/x-export/support.html)。支持入口为公开仓库的 [GitHub Issues](https://github.com/LeonDevLifeLog/x-export/issues)。
+- Homepage URL：[https://leondevlifelog.github.io/x-export/](https://leondevlifelog.github.io/x-export/)。扩展尚未上架，首页没有虚构商店链接。
+
+上述网址已写入 `metadata.json`。发布源为 `site/`，由仓库 `.github/workflows/pages.yml` 自动部署；公开政策与扩展随包政策正文一致。提交前再在未登录浏览器检查这些 HTTPS 页面。网站发布不代表商店审核通过。
+
 ## 提交前由发布者补充
 
-- 公开隐私政策 HTTPS URL，部署 `site/privacy.html` 后在未登录浏览器检查。扩展内的 `chrome-extension://.../privacy.html` 不是公开 URL。
-- 公开支持邮箱或反馈网址，替换 `site/support.html` 中标记 `data-publish-required` 的占位段落。私有源码仓库不能作为公众支持入口。可使用商店 Support hub，并在公开支持页明确联系方式。
-- 将 privacyPolicyUrl、supportUrl、homepageUrl 填入 `metadata.json`。homepage 可选；政策为必需。托管首页时移除“发布准备”提示并在上架后添加真实商店链接。
 - 注册/确认 Chrome Web Store 开发者账户、一次性注册费用、二步验证、联系邮箱及后台要求的身份/地址信息。这些账户状态尚未检查。
 - 如审核要求登录凭据，在审核专用字段提供独立 X 测试账号。代码无需开发者 API Key，但真实页面读取需 X 登录态。
+- 上架后在首页添加真实商店链接；若希望使用支持邮箱，可同时更新支持页与政策联系段落。
 
 ## 打包与检查
 

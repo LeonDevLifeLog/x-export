@@ -46,9 +46,9 @@ Export the X posts and articles that the user chooses from their already-loaded,
 
 ## Privacy policy URL
 
-**待补充公开 HTTPS URL。** 源页面为 `site/privacy.html`，中英文完整政策亦随扩展打包。部署后需无需登录可访问，政策需对应本版本。
+[https://leondevlifelog.github.io/x-export/privacy.html](https://leondevlifelog.github.io/x-export/privacy.html)。源页面为 `site/privacy.html`，中英文完整政策亦随扩展打包。提交前检查无需登录即可访问，并确认对应本版本。
 
-`metadata.json` 中 privacyPolicyUrl / supportUrl / homepageUrl 均为 null，表示尚未托管；不能将私有 GitHub 仓库链接填写到商店。
+`metadata.json` 已填写 GitHub Pages 的政策、支持页和首页 URL。支持页使用公开仓库的 GitHub Issues 作为联系入口；Issue 公开可见，页面提醒用户不要发送账号凭据或私密导出文件。
 
 ## 官方依据
 

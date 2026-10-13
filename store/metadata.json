@@ -9,9 +9,9 @@
   },
   "remoteCode": false,
   "publisher": "LeonDevLifeLog",
-  "privacyPolicyUrl": null,
-  "supportUrl": null,
-  "homepageUrl": null,
+  "privacyPolicyUrl": "https://leondevlifelog.github.io/x-export/privacy.html",
+  "supportUrl": "https://leondevlifelog.github.io/x-export/support.html",
+  "homepageUrl": "https://leondevlifelog.github.io/x-export/",
   "locales": {
     "en": {
       "name": "X Export — Save posts as MD, HTML & PDF",

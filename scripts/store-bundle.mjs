@@ -18,7 +18,7 @@ await cp(join(root, 'VERIFICATION.md'), join(output, 'VERIFICATION.md'));
 await cp(join(root, 'docs/MVP.md'), join(output, 'MVP.md'));
 const content = await readFile(join(output, `x-export-v${version}.zip`));
 await writeFile(join(output, 'SHA256SUMS'), `${createHash('sha256').update(content).digest('hex')}  x-export-v${version}.zip\n`);
-await writeFile(join(output, 'START-HERE.txt'), `X Export ${version} — Chrome Web Store submission materials\n\nUpload x-export-v${version}.zip as the extension package.\nDo NOT upload this entire handoff archive as the extension.\nRead materials/SUBMISSION.md for field mappings and remaining public URL/account/manual test prerequisites.\nThe public website drafts have NOT been hosted.\n\n提交扩展时只上传 x-export-v${version}.zip，不要上传整个移交包。\n材料、字段对应关系与待补充事项见 materials/SUBMISSION.md。公开页面尚未托管。\n`);
+await writeFile(join(output, 'START-HERE.txt'), `X Export ${version} — Chrome Web Store submission materials\n\nUpload x-export-v${version}.zip as the extension package.\nDo NOT upload this entire handoff archive as the extension.\nRead materials/SUBMISSION.md for field mappings and remaining account/manual test prerequisites.\nPublic website URLs are listed in materials/metadata.json; hosting verification is recorded in VERIFICATION.md.\n\n提交扩展时只上传 x-export-v${version}.zip，不要上传整个移交包。\n材料、字段对应关系与待补充事项见 materials/SUBMISSION.md。公开网址见 materials/metadata.json，托管验证见 VERIFICATION.md。\n`);
 const archive = join(root, 'dist', `x-export-webstore-v${version}.zip`);
 await rm(archive, { force: true });
 const zipped = spawnSync('zip', ['-Xqr', archive, '.'], { cwd: output, encoding: 'utf8' });
