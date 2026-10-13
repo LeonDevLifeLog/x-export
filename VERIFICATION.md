@@ -30,6 +30,14 @@ PDF 文件内容解析确认：普通样例为 2 页，50 段分页样例为 6 �
 - store:check 通过：版本一致、ZIP 根 manifest、文件树及内容与源码一致、必需/可选权限白名单、语言消息引用、素材尺寸、截图源文件摘要、隐私正文及网站内链一致。报告在 dist/webstore-check.json。
 - 公开政策及支持 URL 已填写到 metadata，GitHub Pages 部署结果单独核对。首轮本地材料准备未执行商店上传或提交；后续发布者提供商店条目地址并确认审核中。个人 Chrome 的线上完整导出与未覆盖的系统交互仍为独立验收项，不宣称商店批准。
 
+## README 展示与商店入口
+
+2026-10-13 更新中英文 README：品牌横幅、5 个 badge、实际扩展截图、导出格式对照、快速开始和可展开的技术细节。所有本地图片/文档引用均存在，5 个 Shields badge 返回有效 SVG；使用 GitHub Markdown API 核对图片、展开区块与替代文字。
+
+在未登录的 Chrome 中分别打开真实仓库首页及英文 README：每份文档的 10 张图片（横幅、5 个 badge、4 张实际界面截图）全部完成加载，3 个展开区块可用，“快速开始”跳转正常，390px 下正文没有横向溢出。截图及记录为 `artifacts/readme-github-*-desktop.png` / `readme-github-*-mobile.png` 和 `artifacts/readme-live-verification.json`。未因文档修改重跑导出逻辑测试。
+
+发布者提供商店条目 `ndhnmjaofmpjpeminbnmgachmmdebeag` 并确认审核中；README 与官网首页提供同一条目链接，未宣称获批或可安装。官网首页的商店按钮在 375px 下无溢出。[部署任务](https://github.com/LeonDevLifeLog/x-export/actions/runs/38394570760)成功，提交 `1a201a6811d12d1d9905778f489d0d8f16c966ff`；首页与 CSS 的匿名 HTTPS 响应为 200，字节与本地发布源一致。记录为 `artifacts/readme-pages-verification.json`。本次不读取开发者后台，审核状态来源为发布者。
+
 ## GitHub Pages 公开发布
 
 2026-10-13 18:16（Asia/Shanghai）确认：仓库公开且 Issues 可用，GitHub Pages 使用 workflow 发布、启用 HTTPS。部署提交为 `4534a82430c9fcd6a6944a0be6fa914bda3940e3`，[部署任务](https://github.com/LeonDevLifeLog/x-export/actions/runs/38382002477)结果为 success。部署目录仅为 `store/site`，包含首页、双语政策、支持页和样式；扩展、测试与 artifacts 不在该部署中。
