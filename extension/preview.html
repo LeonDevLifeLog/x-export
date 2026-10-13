@@ -1,30 +1,33 @@
 <!doctype html>
-<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>X Export · 排版预览</title><link rel="stylesheet" href="ui.css"><link rel="stylesheet" href="document.css"></head>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title data-i18n="previewTitle">X Export · Preview</title><link rel="stylesheet" href="ui.css"><link rel="stylesheet" href="document.css"></head>
 <body>
-  <a href="#preview" class="skip-link">跳到阅读预览</a>
-  <header class="app-header"><div class="brand"><img class="brand-mark" src="icons/48.png" alt=""><div><div class="brand-name">X Export<span style="color:#83917e">.</span></div><div class="brand-sub">让文字，留下来。</div></div></div><div class="header-right"><span id="demo-badge" class="pill" hidden>示例内容</span><span class="pill">内容仅在本机处理</span><a id="original-link" class="header-link" href="https://x.com" target="_blank" rel="noopener noreferrer">回到原文 ↗</a></div></header>
-  <div id="fatal" class="empty-state" hidden><h1>这份预览已经过期</h1><p id="fatal-message"></p><a href="preview.html?demo=1">体验示例排版</a></div>
+  <a href="#preview" class="skip-link" data-i18n="skipPreview"></a>
+  <header class="app-header"><div class="brand"><img class="brand-mark" src="icons/48.png" alt=""><div><div class="brand-name">X Export<span style="color:#83917e">.</span></div><div class="brand-sub" data-i18n="brandSub"></div></div></div><div class="header-right"><span id="demo-badge" class="pill" hidden data-i18n="demoBadge"></span><span class="pill" data-i18n="localOnly"></span><a id="original-link" class="header-link" href="https://x.com" target="_blank" rel="noopener noreferrer" data-i18n="backToSource"></a></div></header>
+  <div id="fatal" class="empty-state" hidden><h1 data-i18n="previewExpired"></h1><p id="fatal-message"></p><a href="preview.html?demo=1" data-i18n="demoPreview"></a></div>
   <main id="studio" class="studio" hidden>
-    <aside class="sidebar" aria-label="导出设置"><div class="sidebar-inner">
-      <p class="sidebar-topline">一份发文，一份好文档</p>
-      <div class="source-card"><div class="source-card-top"><strong id="source-kind">来自 X 的发文</strong><span id="source-count" class="count"></span></div><div id="source-author" class="source-author"></div><div id="source-excerpt" class="source-excerpt"></div><div id="source-time" class="source-time"></div></div>
-      <div class="control-section"><label class="field-label" for="document-title">文档标题</label><input id="document-title" class="title-input" maxlength="160" autocomplete="off"></div>
-      <fieldset class="control-section"><legend>导出格式</legend><div class="format-options">
+    <aside class="sidebar" data-i18n-aria="exportSettings"><div class="sidebar-inner">
+      <div class="utility-row"><label for="language" data-i18n="languageLabel"></label><select id="language"><option value="auto" data-i18n="autoLanguage"></option><option value="en">English</option><option value="zh-CN">简体中文</option></select><a href="help.html" target="_blank" rel="noopener" data-i18n="helpLink"></a></div>
+      <p class="sidebar-topline" data-i18n="sidebarTopline"></p>
+      <div class="source-card"><div class="source-card-top"><strong id="source-kind"></strong><span id="source-count" class="count"></span></div><div id="source-author" class="source-author"></div><div id="source-excerpt" class="source-excerpt"></div><div id="source-time" class="source-time"></div></div>
+      <div class="control-section"><label class="field-label" for="document-title" data-i18n="documentTitle"></label><input id="document-title" class="title-input" maxlength="160" autocomplete="off"></div>
+      <fieldset class="control-section"><legend data-i18n="exportFormat"></legend><div class="format-options">
         <label class="format-choice"><input type="radio" name="format" value="md"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M5 15V9l3 3 3-3v6m3-3 2 3 2-3m-2 3V9"/></svg><span>Markdown</span></label>
         <label class="format-choice"><input type="radio" name="format" value="html" checked><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m8 7-5 5 5 5m8-10 5 5-5 5M14 5l-4 14"/></svg><span>HTML</span></label>
         <label class="format-choice"><input type="radio" name="format" value="pdf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9zM14 3v6h6M8 13h8m-8 4h5"/></svg><span>PDF</span></label>
       </div><p id="format-description" class="format-description"></p></fieldset>
-      <fieldset id="appearance" class="control-section"><legend>阅读风格</legend><div class="theme-options">
-        <label class="theme-choice"><input type="radio" name="theme" value="paper" checked><span class="theme-thumbnail" aria-hidden="true"></span><span>纸感杂志</span></label>
-        <label class="theme-choice"><input type="radio" name="theme" value="minimal"><span class="theme-thumbnail white" aria-hidden="true"></span><span>纯净白</span></label>
-        <label class="theme-choice"><input type="radio" name="theme" value="midnight"><span class="theme-thumbnail dark" aria-hidden="true"></span><span>夜读</span></label>
-      </div><div class="size-row"><span>正文字号</span><div class="size-options" role="group" aria-label="正文字号"><label class="size-choice"><input type="radio" name="fontSize" value="15"><span>小</span></label><label class="size-choice"><input type="radio" name="fontSize" value="17" checked><span>中</span></label><label class="size-choice"><input type="radio" name="fontSize" value="19"><span>大</span></label></div></div></fieldset>
-      <fieldset class="control-section"><legend>保留内容</legend><label class="check-row" for="includeImages"><span>配图</span><input id="includeImages" type="checkbox" checked></label><label class="check-row" for="includeSource"><span>原文链接</span><input id="includeSource" type="checkbox" checked></label><label class="check-row" for="includeQuote"><span>引用发文</span><input id="includeQuote" type="checkbox" checked></label></fieldset>
-      <details id="selection" class="selection" hidden><summary>选择发文 <span id="selection-count"></span></summary><p class="selection-hint">同作者已加载的内容可能包含独立发文。<br>请核对后勾选；未加载的内容不会自动补全。</p><div id="post-list"></div></details>
-      <div class="export-area"><button id="export" class="primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M4 16v4h16v-4"/></svg><span id="export-label">导出 HTML</span></button><p id="export-hint" class="note"></p></div>
+      <div class="export-area"><button id="export" class="primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M4 16v4h16v-4"/></svg><span id="export-label"></span></button><p id="export-hint" class="note"></p></div>
       <div id="status" class="status" role="status" aria-live="polite"></div>
+      <fieldset id="appearance" class="control-section"><legend data-i18n="readingStyle"></legend><div class="theme-options">
+        <label class="theme-choice"><input type="radio" name="theme" value="paper" checked><span class="theme-thumbnail" aria-hidden="true"></span><span data-i18n="paperTheme"></span></label>
+        <label class="theme-choice"><input type="radio" name="theme" value="minimal"><span class="theme-thumbnail white" aria-hidden="true"></span><span data-i18n="minimalTheme"></span></label>
+        <label class="theme-choice"><input type="radio" name="theme" value="midnight"><span class="theme-thumbnail dark" aria-hidden="true"></span><span data-i18n="midnightTheme"></span></label>
+      </div><div class="size-row"><span data-i18n="bodySize"></span><div class="size-options" role="group" data-i18n-aria="bodySize"><label class="size-choice"><input type="radio" name="fontSize" value="15"><span data-i18n="sizeSmall"></span></label><label class="size-choice"><input type="radio" name="fontSize" value="17" checked><span data-i18n="sizeMedium"></span></label><label class="size-choice"><input type="radio" name="fontSize" value="19"><span data-i18n="sizeLarge"></span></label></div></div></fieldset>
+      <fieldset class="control-section"><legend data-i18n="keepContent"></legend><label class="check-row" for="includeImages"><span data-i18n="imagesOption"></span><input id="includeImages" type="checkbox" checked></label><label class="check-row" for="includeSource"><span data-i18n="sourceOption"></span><input id="includeSource" type="checkbox" checked></label><label class="check-row" for="includeQuote"><span data-i18n="quoteOption"></span><input id="includeQuote" type="checkbox" checked></label></fieldset>
+      <p class="permission-note note" data-i18n="permissionNote"></p>
+      <details id="selection" class="selection" hidden><summary><span data-i18n="selectPosts"></span> <span id="selection-count"></span></summary><p class="selection-hint" data-i18n="selectionHint"></p><div id="post-list"></div></details>
+
     </div></aside>
-    <section class="workspace" aria-label="文档预览"><div class="preview-toolbar"><div><h2 id="preview-heading">阅读预览</h2><div id="preview-meta" class="preview-meta"></div></div><span id="preview-badge" class="preview-badge">所见即所得</span></div><div id="preview" tabindex="-1"></div><pre id="markdown-preview" class="markdown-preview" hidden></pre><p id="preview-caption" class="preview-caption">一页好文字，留一份好排版。</p></section>
+    <section class="workspace" data-i18n-aria="previewRegion"><div class="preview-toolbar"><div><h2 id="preview-heading"></h2><div id="preview-meta" class="preview-meta"></div></div><span id="preview-badge" class="preview-badge"></span></div><div id="preview" tabindex="-1"></div><pre id="markdown-preview" class="markdown-preview" hidden></pre><p id="preview-caption" class="preview-caption" data-i18n="previewCaption"></p></section>
   </main>
   <script type="module" src="preview.js"></script>
 </body></html>

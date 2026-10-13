@@ -1,0 +1,26 @@
+import { cp, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
+import { fileURLToPath } from 'node:url';
+import { spawnSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
+import { join } from 'node:path';
+
+const root = fileURLToPath(new URL('../', import.meta.url));
+const check = spawnSync(process.execPath, ['scripts/store-check.mjs'], { cwd: root, encoding: 'utf8' });
+if (check.status !== 0) throw new Error(check.stderr || check.stdout);
+const version = JSON.parse(await readFile(join(root, 'extension/manifest.json'))).version;
+const output = join(root, 'dist/webstore-submission');
+await rm(output, { recursive: true, force: true });
+await mkdir(output, { recursive: true });
+await cp(join(root, 'store'), join(output, 'materials'), { recursive: true });
+await cp(join(root, 'dist', `x-export-v${version}.zip`), join(output, `x-export-v${version}.zip`));
+await cp(join(root, 'dist/webstore-check.json'), join(output, 'webstore-check.json'));
+await cp(join(root, 'VERIFICATION.md'), join(output, 'VERIFICATION.md'));
+await cp(join(root, 'docs/MVP.md'), join(output, 'MVP.md'));
+const content = await readFile(join(output, `x-export-v${version}.zip`));
+await writeFile(join(output, 'SHA256SUMS'), `${createHash('sha256').update(content).digest('hex')}  x-export-v${version}.zip\n`);
+await writeFile(join(output, 'START-HERE.txt'), `X Export ${version} — Chrome Web Store submission materials\n\nUpload x-export-v${version}.zip as the extension package.\nDo NOT upload this entire handoff archive as the extension.\nRead materials/SUBMISSION.md for field mappings and remaining public URL/account/manual test prerequisites.\nThe public website drafts have NOT been hosted.\n\n提交扩展时只上传 x-export-v${version}.zip，不要上传整个移交包。\n材料、字段对应关系与待补充事项见 materials/SUBMISSION.md。公开页面尚未托管。\n`);
+const archive = join(root, 'dist', `x-export-webstore-v${version}.zip`);
+await rm(archive, { force: true });
+const zipped = spawnSync('zip', ['-Xqr', archive, '.'], { cwd: output, encoding: 'utf8' });
+if (zipped.status !== 0) throw new Error(zipped.stderr);
+console.log(`Store upload: ${join(root, 'dist', `x-export-v${version}.zip`)}\nMaterials handoff: ${archive}`);

@@ -1,0 +1,23 @@
+Save X posts and articles as documents you can read, revisit and keep.
+
+X Export works with the X account already signed in to your Chrome browser. Open a post detail or full article, expand the text, and click the extension to read the content already loaded on that page.
+
+CHOOSE A FORMAT
+• Markdown: editable UTF-8 text with headings, links, lists, code and quotes. Images remain as original image URLs.
+• HTML: a standalone file with readable styling and embedded images for offline reading. No remote scripts or fonts.
+• PDF: open Chrome’s print dialog and choose Save as PDF. Disable headers and footers; enable background graphics if wanted. A4 pagination is automatic. PDF is saved through printing, not a direct PDF download.
+
+MAKE IT YOURS
+Edit the document title, choose Paper, Clean or Night, adjust text size, and decide whether to keep images, source links and quoted posts. Other loaded posts by the same author can be selected manually after review; they may be unrelated. English and Simplified Chinese interfaces are included, with an automatic or manual language choice. Source text is never translated.
+
+YOUR CONTENT, ON YOUR DEVICE
+Documents are processed locally. There is no developer backend, analytics or advertising. The extension does not read X passwords, authentication cookies or tokens. Captured documents are stored temporarily in the browser session; use Help & privacy to clear them. Your layout and language preferences stay on this device.
+
+Images can load from X’s image CDN in the preview. Embedding images in HTML/PDF asks for optional access to pbs.twimg.com; you can decline and still export text with original-image links. Successfully embedded images can be read offline. Markdown image links need a network connection.
+
+BEFORE YOU START
+Sign in to X in this Chrome browser. Only already-loaded content visible to your account is read. The extension does not scroll automatically, fetch unloaded threads, bypass access controls or download video. Videos keep a source link; quoted-post images are not included. X page changes can affect extraction.
+
+Try the built-in original demo without an X account. Use the extension’s Help & privacy page for instructions and data controls.
+
+X Export is an independent tool and is not affiliated with X Corp. Export and share only content you are entitled to use.

@@ -1,0 +1,403 @@
+{
+  "extName": {
+    "message": "X Export · 发文留存"
+  },
+  "extDescription": {
+    "message": "将已登录 X 页面中的帖子和长文导出为 Markdown、精美离线 HTML，或通过打印保存 PDF。"
+  },
+  "actionTitle": {
+    "message": "导出这篇 X 发文"
+  },
+  "brandSub": {
+    "message": "让好文字留下来。"
+  },
+  "localBadge": {
+    "message": "本机处理"
+  },
+  "popupHeadline": {
+    "message": "好文字，值得好好留存。"
+  },
+  "popupIntro": {
+    "message": "把 X 的帖子与长文，变成一份随时重读、分享和收藏的文档。"
+  },
+  "formatsLabel": {
+    "message": "支持的导出格式"
+  },
+  "mdGlance": {
+    "message": "轻量 · 可编辑"
+  },
+  "htmlGlance": {
+    "message": "精美 · 可离线"
+  },
+  "pdfGlance": {
+    "message": "通过打印保存"
+  },
+  "checkingPage": {
+    "message": "正在检查当前页面…"
+  },
+  "xPageReady": {
+    "message": "X 页面 · 读取当前账号可见的内容"
+  },
+  "openXFirst": {
+    "message": "请先登录 X，并打开一篇帖子或长文。"
+  },
+  "extensionOnly": {
+    "message": "请在 Chrome 扩展中使用，或体验示例。"
+  },
+  "loginNote": {
+    "message": "使用前提：当前 Chrome 已登录 X 账号。"
+  },
+  "capture": {
+    "message": "读取当前发文"
+  },
+  "capturing": {
+    "message": "正在读取…"
+  },
+  "captureRetry": {
+    "message": "重新读取"
+  },
+  "noContent": {
+    "message": "没有读取到发文。请打开帖子详情或长文全文，展开正文后重试。"
+  },
+  "contentTooLarge": {
+    "message": "当前内容过大，请减少页面已加载的发文后重试。"
+  },
+  "captureDenied": {
+    "message": "当前页面无法读取。请刷新 X 页面，再点击扩展图标重试。"
+  },
+  "captureFailed": {
+    "message": "读取失败。请刷新 X 页面、展开全文后重试。"
+  },
+  "popupFooter": {
+    "message": "复用当前登录态"
+  },
+  "demoLink": {
+    "message": "体验示例 ↗"
+  },
+  "languageLabel": {
+    "message": "语言"
+  },
+  "autoLanguage": {
+    "message": "自动"
+  },
+  "helpLink": {
+    "message": "帮助与隐私"
+  },
+  "previewTitle": {
+    "message": "X Export · 排版预览"
+  },
+  "skipPreview": {
+    "message": "跳到阅读预览"
+  },
+  "demoBadge": {
+    "message": "示例内容"
+  },
+  "localOnly": {
+    "message": "内容仅在本机处理"
+  },
+  "backToSource": {
+    "message": "回到原文 ↗"
+  },
+  "openX": {
+    "message": "打开 X ↗"
+  },
+  "previewExpired": {
+    "message": "这份预览已经过期"
+  },
+  "previewRecovery": {
+    "message": "请在 X 发文页面点击扩展图标，重新读取内容。预览数据会在 Chrome 关闭后清除。"
+  },
+  "demoPreview": {
+    "message": "体验示例排版"
+  },
+  "exportSettings": {
+    "message": "导出设置"
+  },
+  "sidebarTopline": {
+    "message": "一份发文，一份好文档"
+  },
+  "sourcePost": {
+    "message": "来自 X 的发文"
+  },
+  "sourceArticle": {
+    "message": "来自 X 的长文"
+  },
+  "sourceDemo": {
+    "message": "排版体验 · 原创示例"
+  },
+  "selectedCount": {
+    "message": "$1 条已选",
+    "description": "Positional values are supplied by the UI; keep $1, $2 and $3 unchanged."
+  },
+  "capturedAt": {
+    "message": "读取于 $1",
+    "description": "Positional values are supplied by the UI; keep $1, $2 and $3 unchanged."
+  },
+  "documentTitle": {
+    "message": "文档标题"
+  },
+  "exportFormat": {
+    "message": "导出格式"
+  },
+  "readingStyle": {
+    "message": "阅读风格"
+  },
+  "paperTheme": {
+    "message": "纸感杂志"
+  },
+  "minimalTheme": {
+    "message": "纯净白"
+  },
+  "midnightTheme": {
+    "message": "夜读"
+  },
+  "bodySize": {
+    "message": "正文字号"
+  },
+  "sizeSmall": {
+    "message": "小"
+  },
+  "sizeMedium": {
+    "message": "中"
+  },
+  "sizeLarge": {
+    "message": "大"
+  },
+  "keepContent": {
+    "message": "保留内容"
+  },
+  "imagesOption": {
+    "message": "配图"
+  },
+  "sourceOption": {
+    "message": "原文链接"
+  },
+  "quoteOption": {
+    "message": "引用发文"
+  },
+  "selectPosts": {
+    "message": "选择发文"
+  },
+  "selectionHint": {
+    "message": "同作者已加载的内容可能包含独立发文。请核对后勾选；未加载的内容不会自动补全。"
+  },
+  "currentPost": {
+    "message": "当前发文 · "
+  },
+  "mediaPost": {
+    "message": "图片或视频发文"
+  },
+  "foldedLabel": {
+    "message": "（正文折叠）"
+  },
+  "previewRegion": {
+    "message": "文档预览"
+  },
+  "readingPreview": {
+    "message": "阅读预览"
+  },
+  "markdownPreview": {
+    "message": "Markdown 预览"
+  },
+  "previewMeta": {
+    "message": "$1 · $2 字 · $3 分钟阅读",
+    "description": "Positional values are supplied by the UI; keep $1, $2 and $3 unchanged."
+  },
+  "plainBadge": {
+    "message": "纯文本 · 可编辑"
+  },
+  "pdfBadge": {
+    "message": "A4 · 自动分页"
+  },
+  "visualBadge": {
+    "message": "所见即所得"
+  },
+  "previewCaption": {
+    "message": "一页好文字，留一份好排版。"
+  },
+  "mdDescription": {
+    "message": "保存为 .md 文件；配图以原始图片链接保留。"
+  },
+  "htmlDescription": {
+    "message": "独立 HTML 文件，配图嵌入后可离线阅读。"
+  },
+  "pdfDescription": {
+    "message": "打开 Chrome 打印窗口，选择“保存为 PDF”。"
+  },
+  "exportLabel": {
+    "message": "导出 $1",
+    "description": "Positional values are supplied by the UI; keep $1, $2 and $3 unchanged."
+  },
+  "mdHint": {
+    "message": "UTF-8 编码 · 适合笔记与知识库"
+  },
+  "htmlHint": {
+    "message": "嵌图可能需授权 · 无外部脚本或字体"
+  },
+  "pdfHint": {
+    "message": "打印时关闭页眉页脚；夜读主题自动转为浅色。"
+  },
+  "permissionNote": {
+    "message": "嵌入图片时，Chrome 可能请求读取 X 图片 CDN。可以拒绝，仍会导出文字并保留原图链接。"
+  },
+  "foldedWarning": {
+    "message": "所选发文正文仍然折叠。请回到 X 点击“显示更多”，再使用扩展重新读取。"
+  },
+  "emptySelection": {
+    "message": "请至少选择一条发文。"
+  },
+  "preferencesFailed": {
+    "message": "设置暂时无法保存，当前预览与导出仍可使用。"
+  },
+  "preparing": {
+    "message": "正在准备…"
+  },
+  "preparingDocument": {
+    "message": "正在准备文档…"
+  },
+  "embeddingProgress": {
+    "message": "正在嵌入图片 $1/$2",
+    "description": "Positional values are supplied by the UI; keep $1, $2 and $3 unchanged."
+  },
+  "mdDownloaded": {
+    "message": "Markdown 已交给 Chrome 下载。"
+  },
+  "htmlDownloaded": {
+    "message": "HTML 已交给 Chrome 下载。"
+  },
+  "imageWarning": {
+    "message": "$1 张图片未能嵌入，文档中已保留原图链接。",
+    "description": "Positional values are supplied by the UI; keep $1, $2 and $3 unchanged."
+  },
+  "styleFailed": {
+    "message": "排版样式加载失败，请重新打开扩展后重试。"
+  },
+  "printInstruction": {
+    "message": "请在打印窗口选择“保存为 PDF”，并关闭页眉和页脚。"
+  },
+  "exportFailed": {
+    "message": "导出失败，请重试。"
+  },
+  "exportCancelled": {
+    "message": "下载已取消，可以重新导出。"
+  },
+  "quoteSource": {
+    "message": "引用来源"
+  },
+  "viewSource": {
+    "message": "查看原文"
+  },
+  "imageAlt": {
+    "message": "发文配图"
+  },
+  "imageFallback": {
+    "message": "图片未能嵌入"
+  },
+  "viewImage": {
+    "message": "查看原图"
+  },
+  "videoNotice": {
+    "message": "这篇发文包含视频"
+  },
+  "viewOnX": {
+    "message": "在 X 查看"
+  },
+  "viewVideo": {
+    "message": "在 X 查看视频"
+  },
+  "readTime": {
+    "message": "$1 分钟阅读",
+    "description": "Positional values are supplied by the UI; keep $1, $2 and $3 unchanged."
+  },
+  "documentFooter": {
+    "message": "留住值得重读的文字。"
+  },
+  "helpTitle": {
+    "message": "帮助与隐私 · X Export"
+  },
+  "helpHeading": {
+    "message": "三步留存一篇发文。"
+  },
+  "helpIntro": {
+    "message": "X Export 是独立的 X 发文文档导出工具，与 X Corp. 无关联。"
+  },
+  "helpStep1Title": {
+    "message": "1. 打开完整发文"
+  },
+  "helpStep1": {
+    "message": "在当前 Chrome 登录 X。打开帖子详情或长文阅读页，展开“显示更多”，等待全文加载。"
+  },
+  "helpStep2Title": {
+    "message": "2. 读取并核对"
+  },
+  "helpStep2": {
+    "message": "点击扩展图标和“读取当前发文”，核对作者与全文。同作者已加载内容可手动选入，但不一定属于同一串文。"
+  },
+  "helpStep3Title": {
+    "message": "3. 选择文档格式"
+  },
+  "helpStep3": {
+    "message": "Markdown 保留图片 URL。HTML 嵌图后可离线阅读。PDF 打开 Chrome 打印：选择“保存为 PDF”，关闭页眉页脚，按需开启背景图形。"
+  },
+  "helpLimitsTitle": {
+    "message": "使用边界"
+  },
+  "helpLimits": {
+    "message": "只读取当前页面已加载、账号可见的内容。不自动滚动、不访问私有 API、不下载视频、不绕过访问权限。引用图片不单独导出。X 页面结构变化可能影响提取。"
+  },
+  "helpTroubleTitle": {
+    "message": "内容缺失时"
+  },
+  "helpTrouble": {
+    "message": "刷新 X、展开全文，从详情页重新读取。离线嵌图需要允许图片 CDN 权限；拒绝或读取失败时保留原图链接。PDF 在打印窗口保存，不会自动出现在扩展下载列表。"
+  },
+  "helpDataTitle": {
+    "message": "数据留在你的设备上"
+  },
+  "helpData": {
+    "message": "正文、作者名称/账号、来源 URL、日期和图片引用临时存入 Chrome 扩展会话存储。偏好保存在本机，不上传开发者服务器。预览图片和导出嵌图会请求 X 图片 CDN。"
+  },
+  "helpClear": {
+    "message": "清除临时文档"
+  },
+  "helpClearNote": {
+    "message": "清除本次浏览器会话中的已存预览。已下载文件、排版与语言偏好仍会保留。"
+  },
+  "clearConfirm": {
+    "message": "清除所有临时文档？已有预览页将失效，已下载文件保留。"
+  },
+  "clearDone": {
+    "message": "临时文档已清除。"
+  },
+  "clearFailed": {
+    "message": "清除失败。关闭 Chrome 可清除会话数据。"
+  },
+  "privacyLink": {
+    "message": "查看隐私政策 ↗"
+  },
+  "helpSupportTitle": {
+    "message": "获取支持"
+  },
+  "helpSupport": {
+    "message": "发布后可通过 Chrome 应用商店条目的支持联系方式反馈。请提供扩展版本、Chrome 版本和公开样例 URL，不要发送密码、Cookie、令牌或私密导出内容。"
+  },
+  "versionLabel": {
+    "message": "版本 $1",
+    "description": "Positional values are supplied by the UI; keep $1, $2 and $3 unchanged."
+  },
+  "postSingular": {
+    "message": "$1 条发文"
+  },
+  "postPlural": {
+    "message": "$1 条发文"
+  },
+  "articleEyebrow": {
+    "message": "X 长文"
+  },
+  "collectionEyebrow": {
+    "message": "X 合集"
+  },
+  "postEyebrow": {
+    "message": "来自 X"
+  }
+}

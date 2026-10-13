@@ -2,18 +2,22 @@
 
 一个无需服务器的 Chrome Manifest V3 扩展。将 X（Twitter）的帖子和长文，导出为可编辑的 Markdown、精美的独立 HTML，或通过 Chrome 打印保存为 PDF。
 
+[English](README.en.md) · [商店提交指南](store/SUBMISSION.md) · [MVP 发布基线](docs/MVP.md)
+
+当前版本 **1.1.0**。已准备 Chrome Web Store 提交材料；公开网址按用户要求留待补充，尚未提交审核或上架。
+
 ## 安装
 
 从 GitHub 克隆源码后，先在项目目录执行 `npm ci` 和 `npm run build`，生成下方扩展目录与 ZIP。
 
-已构建的扩展位于 `dist/x-export/`，可分发 ZIP 为 `dist/x-export-v1.0.0.zip`。
+已构建的扩展位于 `dist/x-export/`，可分发 ZIP 为 `dist/x-export-v1.1.0.zip`。
 
 1. 在 Chrome 地址栏输入 `chrome://extensions`。
 2. 打开右上角的“开发者模式”。
 3. 点击“加载已解压的扩展程序”，选择本项目的 `dist/x-export` 文件夹。
 4. 将 **X Export · 发文留存** 固定到工具栏。
 
-ZIP 需要先解压，再选择解压后的 `x-export` 文件夹。本项目尚未发布到 Chrome 应用商店。
+ZIP 需要先解压，再选择包含 `manifest.json` 的解压目录。本项目尚未发布到 Chrome 应用商店。
 
 ## 使用
 
@@ -41,6 +45,10 @@ ZIP 需要先解压，再选择解压后的 `x-export` 文件夹。本项目尚�
 - 只能导出当前页面可以读取的内容；无法绕过登录、订阅、访问权限或页面加载限制。
 - X 的页面结构会变化。正文选择器是兼容性边界；请用目标账号可见的真实页面完成最终验收。
 
+## 国际化
+
+支持英文与简体中文，默认跟随 Chrome 界面语言，可在弹窗、预览或帮助页手动切换。其他语言回退英文。manifest 使用 Chrome `_locales/en` 和 `_locales/zh_CN` 消息；界面、日期/数字、错误/进度与导出辅助文字统一读取本地语言资源。不会翻译原文、作者或用户标题。商店/工具栏中的插件名称跟随 Chrome 自身界面语言，插件内手动选择不改变该名称。
+
 ## 排版
 
 三种阅读风格：**纸感杂志 / 纯净白 / 夜读**。支持三档正文字号，独立开关配图、原文链接和引用。
@@ -55,9 +63,11 @@ ZIP 需要先解压，再选择解压后的 `x-export` 文件夹。本项目尚�
 | `scripting` | 在该页面注入只读的正文提取函数 |
 | `storage` | 会话内暂存发文；在本机保存排版偏好 |
 | `downloads` | 将 Markdown / HTML 交给 Chrome 下载 |
-| `https://pbs.twimg.com/*` | 读取 X 图片 CDN，嵌入 HTML / PDF |
+| `https://pbs.twimg.com/*` | 按需授权读取 X 图片 CDN，嵌入 HTML / PDF |
 
-没有常驻内容脚本、后台服务、统计埋点、后端接口或账号凭据处理。正文放在扩展专用的 `chrome.storage.session`，关闭浏览器后清除；超过 24 小时的记录在下一次读取时清理。主题等偏好放在 `chrome.storage.local`。打开多个预览页时，每份文档使用独立 ID。
+图片 CDN 权限属于可选权限：HTML/PDF 包含图片时按需申请。拒绝或撤销权限后，文字仍可导出，并保留明确的原图链接。Markdown 不申请图片权限。预览图片仍可能从 CDN 加载；“本机处理”不等于无网络请求。
+
+没有常驻内容脚本、后台服务、统计埋点、后端接口或账号凭据处理。正文放在扩展专用的 `chrome.storage.session`，关闭浏览器后清除；超过 24 小时的记录在下一次读取时清理。主题与语言等偏好放在 `chrome.storage.local`，不使用 Sync。通过“帮助与隐私 → 清除临时文档”可清除会话文档并使已打开的相关预览失效，已下载文件需单独删除。打开多个预览页时，每份文档使用独立 ID。
 
 提取的页面数据经结构化转换与 HTML 转义，不复制原页面 HTML、事件处理器或脚本。只允许 HTTP(S) 内容链接；图片嵌入仅接受 X 图片 CDN 的 PNG / JPEG / WebP / GIF，匿名读取、不跟随重定向。每张图片上限 8 MiB，单次读取总预算 32 MiB；3 路并发，每次请求 12 秒超时。图片读取失败会在界面与文档中明确标注，并保留原图链接。
 
@@ -85,6 +95,12 @@ npm run dev
 
 `npm run dev` 仅提供示例页面预览；真实 X 内容提取需要加载扩展。开发后重新执行 `npm run build`，再到扩展管理页点击“重新加载”。
 
+## 商店材料
+
+执行 `npm run build`、`npm run store:assets`、`npm run store:check`、`npm run store:bundle`，得到发行 ZIP 和完整移交包。商店素材在 `store/assets`，中英文各 5 张实际界面截图，另有图标与两种尺寸宣传图；长描述、隐私披露、权限理由、审核测试步骤和待托管网站在 `store/`。
+
+**提交只上传 `dist/x-export-v1.1.0.zip`**，完整材料包 `dist/x-export-webstore-v1.1.0.zip` 用于移交。公开政策和支持网址、开发者账户、原生权限/打印/保存验收仍为发布前步骤，具体见 [提交指南](store/SUBMISSION.md)。
+
 ## 结构
 
 ```text
@@ -97,9 +113,14 @@ extension/
   lib/extract.js         可被注入的独立 DOM 提取函数
   lib/document.js        结构化内容 → Markdown / 安全 HTML
   lib/assets.js          CDN 图片嵌入与失败记录
+  lib/i18n.js            本地双语资源与语言偏好
+  _locales/              Chrome manifest 与界面的中英文消息
+  help.html / help.js    使用帮助与临时数据清理
+  privacy.html           随包双语隐私政策
   lib/download.js        Chrome 文件下载
   lib/demo.js            本地示例
-scripts/                 构建、语法检查、示例预览
+store/                   商店文案、公开网站草稿与实际界面素材
+scripts/                 构建、检查、示例预览、商店素材与材料打包
 tests/                   导出边界检查与浏览器场景
 artifacts/               测试输出与截图（不进入扩展）
 ```
@@ -108,6 +129,6 @@ artifacts/               测试输出与截图（不进入扩展）
 
 单元检查覆盖 HTML 转义、危险链接、中文与 emoji、代码围栏、引用来源、嵌图失败标注和保留选项。
 
-浏览器检查以隔离 Chromium 中的构造 X DOM 页面验证真正的 `chrome.scripting.executeScript`、会话存储、`chrome.downloads`、离线 HTML、排版预览与打印 PDF。为自动化页面注入，**仅临时测试构建**增加 X fixture 域名的 host 权限；发行构建保持 `activeTab`。测试跳过系统原生保存和打印对话框，用实际下载和 Chromium PDF 输出验证文件。测试依据：[Playwright Chrome extensions](https://playwright.dev/docs/chrome-extensions)。
+浏览器检查以隔离 Chromium 中的构造 X DOM 页面验证真正的 `chrome.scripting.executeScript`、会话存储、`chrome.downloads`、离线 HTML、排版预览与打印 PDF。为自动化页面注入，**仅临时测试构建**增加 X fixture 域名的 host 权限；发行构建保持 `activeTab`。测试也替代原生可选图片权限申请/拒绝结果，并跳过系统原生保存和打印对话框，用实际下载和 Chromium PDF 输出验证文件。测试依据：[Playwright Chrome extensions](https://playwright.dev/docs/chrome-extensions)。
 
 已额外在用户登录的 Chrome 中核对指定真实帖子和关联长文，执行只读 DOM 提取并逐段比对正文。细节、结果与证据边界见 [VERIFICATION.md](VERIFICATION.md)。该核对与隔离扩展测试不能替代在用户个人 Chrome 中点击本项目工具栏图标、授予 `activeTab` 和操作系统打印窗口的最终验收。

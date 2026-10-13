@@ -1,7 +1,10 @@
-import { DEFAULT_OPTIONS, normalizeOptions, plainText, renderDocument, toMarkdown, toHTML, fileName, safeURL } from './lib/document.js';
+import { DEFAULT_OPTIONS, normalizeOptions, plainText, renderDocument, toMarkdown, toHTML, fileName, safeURL, readingMinutes } from './lib/document.js';
 import { embedImages } from './lib/assets.js';
 import { downloadFile } from './lib/download.js';
-import { demoDocument } from './lib/demo.js';
+import { createDemoDocument } from './lib/demo.js';
+import { initializeI18n, saveLanguage, t, locale, number } from './lib/i18n.js';
+
+await initializeI18n();
 
 const $ = (selector) => document.querySelector(selector);
 const params = new URLSearchParams(location.search);
@@ -30,45 +33,45 @@ function save() {
       await chrome.storage.local.set({ options });
       if (!isDemo) {
         const [record] = Object.values(await chrome.storage.session.get(key));
-        if (record) await chrome.storage.session.set({ [key]: { ...record, selectedIds: [...selected], title: $('#document-title').value, format } });
+        if (record && ready) await chrome.storage.session.set({ [key]: { ...record, selectedIds: [...selected], title: $('#document-title').value, format } });
       }
-    } catch { showStatus('设置暂时无法保存，当前预览与导出仍可使用。', 'warn'); }
+    } catch { showStatus(t('preferencesFailed'), 'warn'); }
   }, 180);
 }
 
 function render() {
   const doc = currentDocument();
   const characters = doc.posts.reduce((sum, post) => sum + Array.from(plainText(post)).length, 0);
-  $('#source-count').textContent = `${doc.posts.length} 条已选`;
+  $('#source-count').textContent = t('selectedCount', number(doc.posts.length));
   $('#selection-count').textContent = `${selected.size} / ${original.posts.length}`;
-  $('#preview-meta').textContent = `${doc.posts.length} 条发文 · ${characters.toLocaleString('zh-CN')} 字 · ${Math.max(1, Math.ceil(characters / 400))} 分钟阅读`;
-  $('#preview').innerHTML = doc.posts.length ? renderDocument(doc, options) : '<div class="empty-state"><p>请至少选择一条发文。</p></div>';
+  $('#preview-meta').textContent = t('previewMeta', t(doc.posts.length === 1 ? 'postSingular' : 'postPlural', number(doc.posts.length)), number(characters), readingMinutes(doc));
+  $('#preview').innerHTML = doc.posts.length ? renderDocument(doc, options) : `<div class="empty-state"><p>${t('emptySelection')}</p></div>`;
   $('#markdown-preview').textContent = toMarkdown(doc, options);
   $('#markdown-preview').hidden = format !== 'md';
   $('#preview').hidden = format === 'md';
   $('#appearance').disabled = format === 'md';
   $('#appearance').style.opacity = format === 'md' ? '.5' : '1';
-  $('#preview-heading').textContent = format === 'md' ? 'Markdown 预览' : '阅读预览';
-  $('#preview-badge').textContent = format === 'md' ? '纯文本 · 可编辑' : format === 'pdf' ? 'A4 · 自动分页' : '所见即所得';
-  $('#format-description').textContent = { md: '保存为 .md 文件；配图以原始图片链接保留。', html: '独立 HTML 文件，配图嵌入后可离线阅读。', pdf: '打开 Chrome 打印窗口，选择“保存为 PDF”。' }[format];
-  $('#export-label').textContent = `导出 ${format === 'md' ? 'Markdown' : format.toUpperCase()}`;
-  $('#export-hint').textContent = format === 'pdf' ? '打印时关闭页眉页脚；夜读主题自动转为浅色。' : format === 'html' ? '图片在导出时嵌入 · 无外部脚本或字体' : 'UTF-8 编码 · 适合笔记与知识库';
+  $('#preview-heading').textContent = t(format === 'md' ? 'markdownPreview' : 'readingPreview');
+  $('#preview-badge').textContent = t(format === 'md' ? 'plainBadge' : format === 'pdf' ? 'pdfBadge' : 'visualBadge');
+  $('#format-description').textContent = t({ md: 'mdDescription', html: 'htmlDescription', pdf: 'pdfDescription' }[format]);
+  $('#export-label').textContent = t('exportLabel', format === 'md' ? 'Markdown' : format.toUpperCase());
+  $('#export-hint').textContent = t(format === 'pdf' ? 'pdfHint' : format === 'html' ? 'htmlHint' : 'mdHint');
   const truncated = doc.posts.some((post) => post.truncated);
   $('#export').disabled = busy || !doc.posts.length || truncated;
-  if (truncated) showStatus('所选发文正文仍然折叠。请回到 X 点击“显示更多”，再使用扩展重新读取。', 'warn');
+  if (truncated) showStatus(t('foldedWarning'), 'warn');
 }
 
 async function initialize() {
   try {
     let record;
     if (isDemo) {
-      original = structuredClone(demoDocument);
+      original = createDemoDocument(locale);
       $('#demo-badge').hidden = false;
-      $('#original-link').textContent = '打开 X ↗';
+      $('#original-link').textContent = t('openX');
     } else {
-      if (!hasExtension || !params.get('id')) throw new Error('请在 X 发文页面点击扩展图标，重新读取内容。预览数据会在 Chrome 关闭后清除。');
+      if (!hasExtension || !params.get('id')) throw new Error(t('previewRecovery'));
       record = (await chrome.storage.session.get(key))[key];
-      if (!record?.document?.posts?.length) throw new Error('请在 X 发文页面点击扩展图标，重新读取内容。预览数据会在 Chrome 关闭后清除。');
+      if (!record?.document?.posts?.length) throw new Error(t('previewRecovery'));
       original = record.document;
     }
     if (hasExtension) options = normalizeOptions((await chrome.storage.local.get('options')).options);
@@ -84,15 +87,15 @@ async function initialize() {
     const root = original.posts.find((post) => post.id === original.rootId) || original.posts[0];
     $('#source-author').textContent = `${root.author}${root.handle ? ` · @${root.handle}` : ''}`;
     $('#source-excerpt').textContent = plainText(root);
-    $('#source-kind').textContent = isDemo ? '排版体验 · 示例内容' : original.kind === 'article' ? '来自 X 的长文' : '来自 X 的发文';
-    $('#source-time').textContent = `读取于 ${new Intl.DateTimeFormat('zh-CN', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Shanghai' }).format(new Date(original.capturedAt))}`;
+    $('#source-kind').textContent = t(isDemo ? 'sourceDemo' : original.kind === 'article' ? 'sourceArticle' : 'sourcePost');
+    $('#source-time').textContent = t('capturedAt', new Intl.DateTimeFormat(locale, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }).format(new Date(original.capturedAt)));
     $('#selection').hidden = original.posts.length < 2;
     for (const post of original.posts) {
       const row = document.createElement('label');
       row.className = 'post-choice';
       const checkbox = document.createElement('input');
       checkbox.type = 'checkbox'; checkbox.checked = selected.has(post.id); checkbox.value = post.id;
-      const excerpt = document.createElement('span'); excerpt.textContent = `${post.id === original.rootId ? '当前发文 · ' : ''}${plainText(post).slice(0, 110) || '图片或视频发文'}${post.truncated ? '（正文折叠）' : ''}`;
+      const excerpt = document.createElement('span'); excerpt.textContent = `${post.id === original.rootId ? t('currentPost') : ''}${plainText(post).slice(0, 110) || t('mediaPost')}${post.truncated ? t('foldedLabel') : ''}`;
       row.append(checkbox, excerpt);
       checkbox.addEventListener('change', () => { checkbox.checked ? selected.add(post.id) : selected.delete(post.id); showStatus(''); render(); save(); });
       $('#post-list').append(row);
@@ -107,7 +110,7 @@ async function initialize() {
 }
 
 document.addEventListener('change', (event) => {
-  if (!ready || busy) return;
+  if (!ready || busy || event.target.id === 'language') return;
   const input = event.target;
   if (input.name === 'format') format = input.value;
   if (input.name === 'theme') options.theme = input.value;
@@ -132,39 +135,77 @@ $('#export').addEventListener('click', async () => {
   if (!doc.posts.length || doc.posts.some((post) => post.truncated)) return;
   const exportOptions = { ...options };
   const exportFormat = format;
+  // Request optional access synchronously with the export gesture, before any await.
+  const imageSources = [...new Set(doc.posts.flatMap((post) => post.blocks.filter((block) => block.type === 'image').map((block) => block.src)))];
+  const imagePermission = exportFormat !== 'md' && exportOptions.includeImages && imageSources.length && hasExtension
+    ? chrome.permissions.request({ origins: ['https://pbs.twimg.com/*'] }).catch(() => false)
+    : Promise.resolve(true);
   busy = true;
-  document.querySelectorAll('.sidebar input, .sidebar button').forEach((input) => { input.disabled = true; });
-  $('#export-label').textContent = '正在准备…';
-  showStatus('正在准备文档…');
+  document.querySelectorAll('.sidebar input, .sidebar button, .sidebar select').forEach((input) => { input.disabled = true; });
+  $('#export-label').textContent = t('preparing');
+  showStatus(t('preparingDocument'));
   try {
     if (exportFormat === 'md') {
       await saveDownload(toMarkdown(doc, exportOptions), fileName(doc.title, 'md'), 'text/markdown;charset=utf-8');
-      showStatus('Markdown 已交给 Chrome 下载。');
+      showStatus(t('mdDownloaded'));
     } else {
-      const { assets, failed } = exportOptions.includeImages ? await embedImages(doc, (current, total) => { $('#export-label').textContent = `正在嵌入图片 ${current}/${total}`; }) : { assets: {}, failed: [] };
-      const warning = failed.length ? `${failed.length} 张图片未能嵌入，文档中已保留原图链接。` : '';
+      const allowed = await imagePermission;
+      const { assets, failed } = !allowed ? { assets: {}, failed: imageSources } : exportOptions.includeImages ? await embedImages(doc, (current, total) => { $('#export-label').textContent = t('embeddingProgress', current, total); }) : { assets: {}, failed: [] };
+      if (!ready) return;
+      const warning = failed.length ? t('imageWarning', failed.length) : '';
       if (exportFormat === 'html') {
         const response = await fetch(new URL('document.css', import.meta.url));
-        if (!response.ok) throw new Error('排版样式加载失败，请重新打开扩展。');
-        await saveDownload(toHTML(doc, exportOptions, await response.text(), assets), fileName(doc.title, 'html'), 'text/html;charset=utf-8');
-        showStatus(`HTML 已交给 Chrome 下载。${warning}`, failed.length ? 'warn' : '');
+        if (!response.ok) throw new Error(t('styleFailed'));
+        const css = await response.text();
+        if (!ready) return;
+        await saveDownload(toHTML(doc, exportOptions, css, assets), fileName(doc.title, 'html'), 'text/html;charset=utf-8');
+        showStatus(t('htmlDownloaded') + warning, failed.length ? 'warn' : '');
       } else {
         $('#preview').innerHTML = renderDocument(doc, exportOptions, assets);
         await document.fonts.ready;
         await Promise.all(Array.from($('#preview').querySelectorAll('img'), (img) => img.decode().catch(() => {})));
+        if (!ready) return;
         document.title = doc.title;
-        showStatus(`${warning}请在打印窗口选择“保存为 PDF”，并关闭页眉和页脚。`, failed.length ? 'warn' : '');
+        showStatus(warning + t('printInstruction'), failed.length ? 'warn' : '');
         window.print();
       }
     }
-  } catch (error) { showStatus(error.message || '导出失败，请重试。', 'error'); }
+  } catch (error) { showStatus(/cancel/i.test(error.message) ? t('exportCancelled') : error.message === t('styleFailed') ? error.message : t('exportFailed'), 'error'); }
   finally {
     busy = false;
-    document.querySelectorAll('.sidebar input, .sidebar button').forEach((input) => { input.disabled = false; });
+    document.querySelectorAll('.sidebar input, .sidebar button, .sidebar select').forEach((input) => { input.disabled = false; });
     // Preserve embedded images after PDF preparation; the next edit re-renders normally.
     $('#appearance').disabled = format === 'md';
-    $('#export-label').textContent = `导出 ${format === 'md' ? 'Markdown' : format.toUpperCase()}`;
-    $('#export').disabled = !selected.size || currentDocument().posts.some((post) => post.truncated);
+    $('#export-label').textContent = t('exportLabel', format === 'md' ? 'Markdown' : format.toUpperCase());
+    $('#export').disabled = !ready || !selected.size || currentDocument().posts.some((post) => post.truncated);
+  }
+});
+
+$('#language').addEventListener('change', async (event) => {
+  clearTimeout(saveTimer);
+  if (hasExtension && ready) {
+    await chrome.storage.local.set({ options });
+    if (!isDemo) {
+      const record = (await chrome.storage.session.get(key))[key];
+      if (record && ready) await chrome.storage.session.set({ [key]: { ...record, selectedIds: [...selected], title: $('#document-title').value, format } });
+    }
+  }
+  await saveLanguage(event.target.value);
+  location.reload();
+});
+
+// Clearing session data in Help also removes already-open document previews.
+if (hasExtension && !isDemo) chrome.storage.onChanged.addListener((changes, area) => {
+  if (area === 'session' && changes[key] && !changes[key].newValue) {
+    clearTimeout(saveTimer);
+    ready = false; original = null; selected.clear();
+    $('#studio').hidden = true;
+    $('#preview').replaceChildren(); $('#markdown-preview').textContent = '';
+    $('#post-list').replaceChildren(); $('#source-excerpt').textContent = '';
+    $('#document-title').value = '';
+    for (const id of ['source-author', 'source-time', 'preview-meta', 'source-count', 'selection-count']) $(`#${id}`).textContent = '';
+    $('#original-link').href = 'https://x.com'; document.title = t('previewTitle');
+    $('#fatal').hidden = false; $('#fatal-message').textContent = t('previewRecovery');
   }
 });
 

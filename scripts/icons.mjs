@@ -18,6 +18,11 @@ const chunk = (name, data) => {
 for (const size of [16, 32, 48, 128]) {
   const raw = Buffer.alloc(size * (size * 4 + 1));
   const sample = (x, y) => {
+    // Chrome Web Store square artwork: 96px with 16px transparent padding.
+    if (size === 128) {
+      if (x < 16 || y < 16 || x >= 112 || y >= 112) return [0, 0, 0, 0];
+      x = (x - 16) / .75; y = (y - 16) / .75;
+    }
     const r = 21; const dx = Math.max(r - x, 0, x - (128 - r)); const dy = Math.max(r - y, 0, y - (128 - r));
     if (dx * dx + dy * dy > r * r) return [0, 0, 0, 0];
     let color = [36, 91, 69, 255];

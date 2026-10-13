@@ -16,7 +16,7 @@ const extension = await realpath(join(temporary, 'extension'));
 const manifest = JSON.parse(await readFile(join(extension, 'manifest.json'), 'utf8'));
 // Synthetic tabs cannot activate Chrome's toolbar-granted activeTab permission.
 // This isolated test build grants only the fixture origins; production stays unchanged.
-manifest.host_permissions.push('https://x.com/*', 'https://twitter.com/*');
+manifest.host_permissions = ['https://x.com/*', 'https://twitter.com/*', 'https://pbs.twimg.com/*'];
 await writeFile(join(extension, 'manifest.json'), JSON.stringify(manifest));
 const extensionId = [...createHash('sha256').update(extension).digest().subarray(0, 16)].map((byte) => String.fromCharCode(97 + (byte >> 4), 97 + (byte & 15))).join('');
 const base = `chrome-extension://${extensionId}`;
@@ -61,6 +61,7 @@ try {
     await source.goto(url);
     const probe = await browser.newPage();
     await probe.goto(`${base}/preview.html?demo=1`);
+    await probe.evaluate(() => chrome.storage.local.set({ language: 'zh-CN' }));
     const sourceId = await probe.evaluate(async (url) => (await chrome.tabs.query({})).find((tab) => tab.url === url).id, url);
     await probe.close();
     const popup = await browser.newPage();
@@ -80,6 +81,9 @@ try {
     await studio.evaluate(() => {
       const nativeDownload = chrome.downloads.download.bind(chrome.downloads);
       window.downloadRequests = [];
+      window.imagePermissionRequests = [];
+      // Native optional-permission dialogs are outside headless automation.
+      chrome.permissions.request = async (request) => { window.imagePermissionRequests.push(request); return chrome.permissions.contains(request); };
       // Bypass only the native save dialog; use Chrome's actual download API.
       chrome.downloads.download = (options) => { window.downloadRequests.push(options); return nativeDownload({ ...options, saveAs: false }); };
     });
@@ -147,6 +151,7 @@ try {
   assert.ok(markdown.includes('https://pbs.twimg.com/media/example.jpg?format=jpg&name=large'));
   assert.ok(!markdown.includes('其他用户的评论'));
   pass('Markdown downloads through Chrome with full text, source links and original image URLs');
+  assert.deepEqual(await studio.evaluate(() => window.imagePermissionRequests), [], 'Markdown must not request image access');
 
   await studio.locator('input[name="format"][value="html"]').check();
   await studio.locator('input[name="theme"][value="paper"]').check();
@@ -166,6 +171,19 @@ try {
   pass('HTML embeds CDN images and renders with all network requests blocked');
   await offline.close();
   assert.ok(await studio.evaluate(() => window.downloadRequests.every((request) => request.saveAs === true)));
+
+  assert.deepEqual(await studio.evaluate(() => window.imagePermissionRequests[0]), { origins: ['https://pbs.twimg.com/*'] });
+  await studio.evaluate(() => { chrome.permissions.request = async () => false; });
+  const deniedEvent = studio.waitForEvent('download');
+  await studio.locator('#export').click();
+  const denied = await deniedEvent;
+  await denied.saveAs(join(artifacts, 'post-permission-denied.html'));
+  const deniedHTML = await readFile(join(artifacts, 'post-permission-denied.html'), 'utf8');
+  assert.ok(deniedHTML.includes('图片未能嵌入'));
+  assert.ok(deniedHTML.includes('好文字，值得好好留存。'));
+  assert.ok(!deniedHTML.includes('src="https://'));
+  await studio.evaluate(() => { chrome.permissions.request = (request) => chrome.permissions.contains(request); });
+  pass('denied optional image access preserves text and original links in HTML');
 
   // Check partial media failure is disclosed, with a working original-image link.
   await browser.unroute('https://pbs.twimg.com/**');
@@ -249,9 +267,73 @@ try {
   await expired.goto(`${base}/preview.html?id=missing`);
   await expired.waitForSelector('#fatal:not([hidden])');
   assert.ok((await expired.locator('#fatal-message').textContent()).includes('重新读取'));
+  const bilingual = await browser.newPage();
+  await bilingual.goto(`${base}/preview.html?demo=1`);
+  await bilingual.waitForSelector('#studio:not([hidden])');
+  await bilingual.locator('#language').selectOption('en');
+  await bilingual.waitForFunction(() => document.documentElement.lang === 'en');
+  await bilingual.waitForSelector('#studio:not([hidden])');
+  assert.equal(await bilingual.locator('#preview-heading').textContent(), 'Reading preview');
+  assert.equal(await bilingual.locator('#preview h1').textContent(), 'Give good words a second life.');
+  assert.equal(await bilingual.evaluate(() => chrome.runtime.getManifest().name), await bilingual.evaluate(() => chrome.i18n.getMessage('extName')));
+  assert.ok((await bilingual.locator('#preview').textContent()).includes('min read'));
+  await bilingual.locator('input[name="format"][value="md"]').check();
+  assert.ok((await bilingual.locator('#markdown-preview').textContent()).includes('Give good words a second life.'));
+  await bilingual.evaluate(() => {
+    const download = chrome.downloads.download.bind(chrome.downloads);
+    chrome.downloads.download = (options) => download({ ...options, saveAs: false });
+  });
+  const englishDownload = bilingual.waitForEvent('download');
+  await bilingual.locator('#export').click();
+  const englishMD = await englishDownload;
+  await englishMD.saveAs(join(artifacts, 'demo-en.md'));
+  assert.ok((await readFile(join(artifacts, 'demo-en.md'), 'utf8')).includes('Give good words a second life.'));
+  await bilingual.locator('input[name="format"][value="html"]').check();
+  const englishHTMLDownload = bilingual.waitForEvent('download');
+  await bilingual.locator('#export').click();
+  const englishHTML = await englishHTMLDownload;
+  await englishHTML.saveAs(join(artifacts, 'demo-en.html'));
+  const englishHTMLText = await readFile(join(artifacts, 'demo-en.html'), 'utf8');
+  assert.ok(englishHTMLText.includes('<html lang="en">'));
+  assert.ok(englishHTMLText.includes('Keep words worth revisiting.'));
+  await bilingual.setViewportSize({ width: 375, height: 900 });
+  assert.ok(await bilingual.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+  await bilingual.screenshot({ path: join(artifacts, 'studio-en-mobile.png'), fullPage: true });
+  const help = await browser.newPage();
+  await help.goto(`${base}/help.html`);
+  await help.waitForFunction(() => document.querySelector('#version').textContent.includes('1.1.0'));
+  assert.equal(await help.locator('h1').textContent(), 'Keep a post in three steps.');
+  pass('English switch localizes demo, export labels, reading metadata and help without narrow-screen overflow');
+  pass('Chrome resolves manifest messages; English Markdown/HTML downloads contain localized document labels');
+  const englishPopup = await browser.newPage();
+  await englishPopup.setViewportSize({ width: 376, height: 600 });
+  await englishPopup.goto(`${base}/popup.html`);
+  await englishPopup.waitForFunction(() => document.querySelector('#capture-label').textContent === 'Read current post');
+  const popupSize = await englishPopup.locator('body').boundingBox();
+  assert.ok(popupSize.height <= 600, `English popup exceeds Chrome height: ${popupSize.height}`);
+  assert.ok(await englishPopup.evaluate(() => document.documentElement.scrollWidth <= 376));
+  await englishPopup.locator('body').screenshot({ path: join(artifacts, 'popup-en.png') });
+  await englishPopup.close();
+  pass('English popup fits Chrome’s 600px popup height and 376px width');
+  await studio.locator('#language').selectOption('en');
+  await studio.waitForFunction(() => document.documentElement.lang === 'en');
+  await studio.waitForSelector('#studio:not([hidden])');
+  assert.equal(await studio.locator('#document-title').inputValue(), '我的发文合集');
+  assert.ok((await studio.locator('#source-excerpt').textContent()).includes('好文字，值得好好留存。'));
+  assert.ok((await studio.locator('#status').textContent()).includes('still folded'));
+  pass('language switch preserves source text, title and selections and translates errors');
+  help.on('dialog', (dialog) => dialog.accept());
+  await help.locator('#clear-documents').click();
+  await studio.waitForSelector('#fatal:not([hidden])');
+  const cleared = await help.evaluate(async () => ({ session: await chrome.storage.session.get(null), local: await chrome.storage.local.get(null) }));
+  assert.ok(!Object.keys(cleared.session).some((key) => key.startsWith('doc:')));
+  assert.ok(cleared.local.options);
+  assert.equal(cleared.local.language, 'en');
+  assert.equal(await studio.locator('#preview').textContent(), '');
+  pass('clearing temporary documents removes session content and invalidates open previews while preserving preferences');
   assert.deepEqual(errors, []);
   pass('missing preview data has a recovery state; no browser JavaScript errors');
-  await writeFile(join(artifacts, 'verification.json'), JSON.stringify({ browser: browser.browser().version(), checks, javascriptErrors: errors, fixtureOnly: true, nativeSaveDialogBypassed: true, nativePrintDialogBypassed: true, productionActiveTabGestureTested: false }, null, 2));
+  await writeFile(join(artifacts, 'verification.json'), JSON.stringify({ browser: browser.browser().version(), checks, javascriptErrors: errors, fixtureOnly: true, nativeSaveDialogBypassed: true, nativePrintDialogBypassed: true, productionActiveTabGestureTested: false, nativeOptionalPermissionDialogTested: false }, null, 2));
   console.log(`\n${checks} browser checks passed. Screenshots and exported files: ${artifacts}`);
 } finally {
   await browser.close();

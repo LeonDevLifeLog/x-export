@@ -1,6 +1,6 @@
 {
   "name": "x-export",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "type": "module",
   "description": "Turn X posts and articles into readable Markdown, HTML and PDF.",
@@ -9,7 +9,10 @@
     "check": "node scripts/check.mjs",
     "dev": "node scripts/serve.mjs",
     "test": "node --test tests/*.test.mjs",
-    "test:browser": "node tests/browser.mjs"
+    "test:browser": "node tests/browser.mjs",
+    "store:assets": "node scripts/store-assets.mjs",
+    "store:check": "node scripts/store-check.mjs",
+    "store:bundle": "node scripts/store-bundle.mjs"
   },
   "devDependencies": {
     "playwright": "1.58.2"

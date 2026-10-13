@@ -24,3 +24,27 @@ export const demoDocument = {
     ], quote: null,
   }],
 };
+
+export function createDemoDocument(locale) {
+  if (locale === 'zh-CN') return structuredClone(demoDocument);
+  const title = 'Give good words a second life.';
+  return {
+    ...structuredClone(demoDocument), title,
+    posts: [{ ...structuredClone(demoDocument.posts[0]), author: 'X Export Studio', title,
+      blocks: [
+        { type: 'paragraph', runs: [{ text: 'We read so much every day. Only a few words make us want to stop: a thoughtful idea, an honest story, or a sentence that meets us at the right moment.' }] },
+        { type: 'paragraph', runs: [{ text: 'Those words deserve a place to stay, and a calmer way to read them.' }] },
+        { type: 'heading', level: 2, runs: [{ text: 'From your feed to your bookshelf' }] },
+        { type: 'paragraph', runs: [{ text: 'X Export turns posts and articles into documents you can take your time with. Keep the author and source, arrange the text and images, and bring reading back to the center.' }] },
+        { type: 'quote', runs: [{ text: 'To save something is to give your future self a chance to meet it again.' }] },
+        { type: 'heading', level: 2, runs: [{ text: 'A format for every moment' }] },
+        { type: 'list', ordered: false, items: [
+          [{ text: 'Markdown', bold: true }, { text: ': add it to your notes, then edit and connect your ideas.' }],
+          [{ text: 'HTML', bold: true }, { text: ': keep the layout and read offline once images are embedded.' }],
+          [{ text: 'PDF', bold: true }, { text: ': save through Chrome printing for sharing or reading on paper.' }],
+        ] },
+        { type: 'paragraph', runs: [{ text: 'Try the reading styles on the left. Then open a post on X, click the extension icon, and keep a copy in your own style.' }] },
+      ],
+    }],
+  };
+}

@@ -1,0 +1,68 @@
+{
+  "version": "1.1.0",
+  "browser": "148.0.7778.96",
+  "content": "Original built-in demo; no X account or third-party post data.",
+  "screenshots": [
+    {
+      "file": "en/01-paper.png",
+      "width": 1280,
+      "height": 800,
+      "source": "Production extension, built-in demo preview"
+    },
+    {
+      "file": "en/01-minimal.png",
+      "width": 1280,
+      "height": 800,
+      "source": "Production extension, built-in demo preview"
+    },
+    {
+      "file": "en/01-midnight.png",
+      "width": 1280,
+      "height": 800,
+      "source": "Production extension, built-in demo preview"
+    },
+    {
+      "file": "en/02-markdown.png",
+      "width": 1280,
+      "height": 800,
+      "source": "Production extension, Markdown preview"
+    },
+    {
+      "file": "en/03-help.png",
+      "width": 1280,
+      "height": 800,
+      "source": "Production extension, help page"
+    },
+    {
+      "file": "zh_CN/01-paper.png",
+      "width": 1280,
+      "height": 800,
+      "source": "Production extension, built-in demo preview"
+    },
+    {
+      "file": "zh_CN/01-minimal.png",
+      "width": 1280,
+      "height": 800,
+      "source": "Production extension, built-in demo preview"
+    },
+    {
+      "file": "zh_CN/01-midnight.png",
+      "width": 1280,
+      "height": 800,
+      "source": "Production extension, built-in demo preview"
+    },
+    {
+      "file": "zh_CN/02-markdown.png",
+      "width": 1280,
+      "height": 800,
+      "source": "Production extension, Markdown preview"
+    },
+    {
+      "file": "zh_CN/03-help.png",
+      "width": 1280,
+      "height": 800,
+      "source": "Production extension, help page"
+    }
+  ],
+  "extensionTreeSha256": "06bd9c6c2625a75a1559bfc37919b773de082654a4ea8c8672336bf11e0c7b96"
+}

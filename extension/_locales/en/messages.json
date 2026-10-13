@@ -1,0 +1,403 @@
+{
+  "extName": {
+    "message": "X Export — Save posts as MD, HTML & PDF"
+  },
+  "extDescription": {
+    "message": "Export X posts and articles to Markdown, styled offline HTML, or PDF via printing. Works with your signed-in X page."
+  },
+  "actionTitle": {
+    "message": "Export this X post"
+  },
+  "brandSub": {
+    "message": "Keep good words."
+  },
+  "localBadge": {
+    "message": "Local processing"
+  },
+  "popupHeadline": {
+    "message": "Good words deserve a good home."
+  },
+  "popupIntro": {
+    "message": "Turn X posts and articles into documents to read, revisit and keep."
+  },
+  "formatsLabel": {
+    "message": "Export formats"
+  },
+  "mdGlance": {
+    "message": "Light & editable"
+  },
+  "htmlGlance": {
+    "message": "Styled & offline"
+  },
+  "pdfGlance": {
+    "message": "Save via printing"
+  },
+  "checkingPage": {
+    "message": "Checking this page…"
+  },
+  "xPageReady": {
+    "message": "X page · read content visible to your account"
+  },
+  "openXFirst": {
+    "message": "Sign in to X and open a post or article first."
+  },
+  "extensionOnly": {
+    "message": "Use the Chrome extension, or try the demo."
+  },
+  "loginNote": {
+    "message": "Before you start: sign in to X in this Chrome browser."
+  },
+  "capture": {
+    "message": "Read current post"
+  },
+  "capturing": {
+    "message": "Reading…"
+  },
+  "captureRetry": {
+    "message": "Read again"
+  },
+  "noContent": {
+    "message": "No post found. Open the full post or article, expand its text, and try again."
+  },
+  "contentTooLarge": {
+    "message": "Too much content. Load fewer posts on the page and try again."
+  },
+  "captureDenied": {
+    "message": "This page could not be read. Refresh X, click the extension icon and try again."
+  },
+  "captureFailed": {
+    "message": "Could not read this post. Refresh X, expand the full text and try again."
+  },
+  "popupFooter": {
+    "message": "Uses your existing X session"
+  },
+  "demoLink": {
+    "message": "Try demo ↗"
+  },
+  "languageLabel": {
+    "message": "Language"
+  },
+  "autoLanguage": {
+    "message": "Auto"
+  },
+  "helpLink": {
+    "message": "Help & privacy"
+  },
+  "previewTitle": {
+    "message": "X Export · Preview"
+  },
+  "skipPreview": {
+    "message": "Skip to reading preview"
+  },
+  "demoBadge": {
+    "message": "Demo content"
+  },
+  "localOnly": {
+    "message": "Content stays on your device"
+  },
+  "backToSource": {
+    "message": "Back to source ↗"
+  },
+  "openX": {
+    "message": "Open X ↗"
+  },
+  "previewExpired": {
+    "message": "This preview is no longer available"
+  },
+  "previewRecovery": {
+    "message": "Open a post on X and click the extension to read it again. Preview data is cleared when Chrome closes."
+  },
+  "demoPreview": {
+    "message": "Try the demo preview"
+  },
+  "exportSettings": {
+    "message": "Export settings"
+  },
+  "sidebarTopline": {
+    "message": "A post becomes a document"
+  },
+  "sourcePost": {
+    "message": "Post from X"
+  },
+  "sourceArticle": {
+    "message": "Article from X"
+  },
+  "sourceDemo": {
+    "message": "Layout demo · original sample"
+  },
+  "selectedCount": {
+    "message": "$1 selected",
+    "description": "Positional values are supplied by the UI; keep $1, $2 and $3 unchanged."
+  },
+  "capturedAt": {
+    "message": "Read at $1",
+    "description": "Positional values are supplied by the UI; keep $1, $2 and $3 unchanged."
+  },
+  "documentTitle": {
+    "message": "Document title"
+  },
+  "exportFormat": {
+    "message": "Export format"
+  },
+  "readingStyle": {
+    "message": "Reading style"
+  },
+  "paperTheme": {
+    "message": "Paper"
+  },
+  "minimalTheme": {
+    "message": "Clean"
+  },
+  "midnightTheme": {
+    "message": "Night"
+  },
+  "bodySize": {
+    "message": "Text size"
+  },
+  "sizeSmall": {
+    "message": "S"
+  },
+  "sizeMedium": {
+    "message": "M"
+  },
+  "sizeLarge": {
+    "message": "L"
+  },
+  "keepContent": {
+    "message": "Keep in document"
+  },
+  "imagesOption": {
+    "message": "Images"
+  },
+  "sourceOption": {
+    "message": "Source links"
+  },
+  "quoteOption": {
+    "message": "Quoted posts"
+  },
+  "selectPosts": {
+    "message": "Select posts"
+  },
+  "selectionHint": {
+    "message": "Loaded posts by this author may be unrelated. Review each before selecting. Unloaded posts are not fetched."
+  },
+  "currentPost": {
+    "message": "Current post · "
+  },
+  "mediaPost": {
+    "message": "Image or video post"
+  },
+  "foldedLabel": {
+    "message": " (text folded)"
+  },
+  "previewRegion": {
+    "message": "Document preview"
+  },
+  "readingPreview": {
+    "message": "Reading preview"
+  },
+  "markdownPreview": {
+    "message": "Markdown preview"
+  },
+  "previewMeta": {
+    "message": "$1 · $2 characters · $3 min read",
+    "description": "Positional values are supplied by the UI; keep $1, $2 and $3 unchanged."
+  },
+  "plainBadge": {
+    "message": "Plain text · editable"
+  },
+  "pdfBadge": {
+    "message": "A4 · automatic pages"
+  },
+  "visualBadge": {
+    "message": "Live preview"
+  },
+  "previewCaption": {
+    "message": "Good words. A place to keep them."
+  },
+  "mdDescription": {
+    "message": "A .md file with original image URLs."
+  },
+  "htmlDescription": {
+    "message": "A standalone HTML file. Embedded images work offline."
+  },
+  "pdfDescription": {
+    "message": "Open Chrome’s print dialog, then choose Save as PDF."
+  },
+  "exportLabel": {
+    "message": "Export $1",
+    "description": "Positional values are supplied by the UI; keep $1, $2 and $3 unchanged."
+  },
+  "mdHint": {
+    "message": "UTF-8 · ready for your notes"
+  },
+  "htmlHint": {
+    "message": "Images may need permission · no remote scripts or fonts"
+  },
+  "pdfHint": {
+    "message": "Disable print headers/footers. Night prints in light colors."
+  },
+  "permissionNote": {
+    "message": "To embed images, Chrome may ask for access to X’s image CDN. You can decline; text and original-image links will still be exported."
+  },
+  "foldedWarning": {
+    "message": "Selected text is still folded. Click Show more on X, then use the extension to read it again."
+  },
+  "emptySelection": {
+    "message": "Select at least one post."
+  },
+  "preferencesFailed": {
+    "message": "Settings could not be saved. You can still preview and export."
+  },
+  "preparing": {
+    "message": "Preparing…"
+  },
+  "preparingDocument": {
+    "message": "Preparing your document…"
+  },
+  "embeddingProgress": {
+    "message": "Embedding images $1/$2",
+    "description": "Positional values are supplied by the UI; keep $1, $2 and $3 unchanged."
+  },
+  "mdDownloaded": {
+    "message": "Markdown sent to Chrome downloads."
+  },
+  "htmlDownloaded": {
+    "message": "HTML sent to Chrome downloads."
+  },
+  "imageWarning": {
+    "message": "$1 image(s) could not be embedded. Original-image links are included. ",
+    "description": "Positional values are supplied by the UI; keep $1, $2 and $3 unchanged."
+  },
+  "styleFailed": {
+    "message": "Could not load styles. Reopen the extension and try again."
+  },
+  "printInstruction": {
+    "message": "Choose Save as PDF in the print dialog and disable headers and footers."
+  },
+  "exportFailed": {
+    "message": "Export failed. Please try again."
+  },
+  "exportCancelled": {
+    "message": "Download cancelled. You can export again."
+  },
+  "quoteSource": {
+    "message": "Quoted source"
+  },
+  "viewSource": {
+    "message": "View original"
+  },
+  "imageAlt": {
+    "message": "Post image"
+  },
+  "imageFallback": {
+    "message": "Image could not be embedded"
+  },
+  "viewImage": {
+    "message": "View original image"
+  },
+  "videoNotice": {
+    "message": "This post includes a video"
+  },
+  "viewOnX": {
+    "message": "View on X"
+  },
+  "viewVideo": {
+    "message": "Watch video on X"
+  },
+  "readTime": {
+    "message": "$1 min read",
+    "description": "Positional values are supplied by the UI; keep $1, $2 and $3 unchanged."
+  },
+  "documentFooter": {
+    "message": "Keep words worth revisiting."
+  },
+  "helpTitle": {
+    "message": "Help & privacy · X Export"
+  },
+  "helpHeading": {
+    "message": "Keep a post in three steps."
+  },
+  "helpIntro": {
+    "message": "X Export is an independent tool for saving X posts and articles as documents. It is not affiliated with X Corp."
+  },
+  "helpStep1Title": {
+    "message": "1. Open the complete post"
+  },
+  "helpStep1": {
+    "message": "Sign in to X in this Chrome browser. Open a post detail or article reading view, expand Show more, and wait for the full body to load."
+  },
+  "helpStep2Title": {
+    "message": "2. Read and review"
+  },
+  "helpStep2": {
+    "message": "Click the extension icon and Read current post. Check the author and full text. Other loaded posts by the same author are optional and may be unrelated."
+  },
+  "helpStep3Title": {
+    "message": "3. Choose your document"
+  },
+  "helpStep3": {
+    "message": "Markdown keeps image URLs. HTML embeds images for offline reading. PDF opens Chrome printing: choose Save as PDF, disable headers and footers, and enable background graphics if wanted."
+  },
+  "helpLimitsTitle": {
+    "message": "What to expect"
+  },
+  "helpLimits": {
+    "message": "Only content already loaded and visible to your X account is read. There is no automatic scrolling, hidden API access, video download or access-control bypass. Quoted images are not included. X page changes can affect extraction."
+  },
+  "helpTroubleTitle": {
+    "message": "If something is missing"
+  },
+  "helpTrouble": {
+    "message": "Refresh X, expand the full text and read again from the detail page. Allow the image CDN permission for offline images; if denied or unavailable, an original-image link is kept. Save the PDF from the print dialog, not the downloads list."
+  },
+  "helpDataTitle": {
+    "message": "Your data, on your device"
+  },
+  "helpData": {
+    "message": "Post text, author names/handles, source URLs, dates and image references are stored temporarily in Chrome’s extension session storage. Preferences stay in local storage. No developer server receives them. Preview images and export image requests contact X’s CDN."
+  },
+  "helpClear": {
+    "message": "Clear temporary documents"
+  },
+  "helpClearNote": {
+    "message": "Clears saved previews in this browser session. Downloaded files, layout and language preferences are kept."
+  },
+  "clearConfirm": {
+    "message": "Clear all temporary documents? Existing preview tabs will become unavailable. Downloaded files are kept."
+  },
+  "clearDone": {
+    "message": "Temporary documents cleared."
+  },
+  "clearFailed": {
+    "message": "Could not clear documents. Close Chrome to clear session data."
+  },
+  "privacyLink": {
+    "message": "Read the privacy policy ↗"
+  },
+  "helpSupportTitle": {
+    "message": "Get support"
+  },
+  "helpSupport": {
+    "message": "Use the support contact on the Chrome Web Store listing after release. Include the extension version, Chrome version and a public example URL. Never send passwords, cookies, tokens or private exported content."
+  },
+  "versionLabel": {
+    "message": "Version $1",
+    "description": "Positional values are supplied by the UI; keep $1, $2 and $3 unchanged."
+  },
+  "postSingular": {
+    "message": "$1 post"
+  },
+  "postPlural": {
+    "message": "$1 posts"
+  },
+  "articleEyebrow": {
+    "message": "X ARTICLE"
+  },
+  "collectionEyebrow": {
+    "message": "X COLLECTION"
+  },
+  "postEyebrow": {
+    "message": "FROM X"
+  }
+}

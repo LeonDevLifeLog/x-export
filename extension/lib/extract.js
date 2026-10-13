@@ -2,7 +2,7 @@
 export function extractXPage() {
   const pageURL = new URL(location.href);
   if (!/^(www\.|mobile\.)?(x\.com|twitter\.com)$/.test(pageURL.hostname)) {
-    throw new Error('请在 X（Twitter）的帖子或长文页面使用。');
+    throw new Error('X_EXPORT_UNSUPPORTED_PAGE');
   }
   const statusPattern = /^\/([^/]+)\/status\/(\d+)/;
   const statusOf = (href) => {
@@ -53,7 +53,7 @@ export function extractXPage() {
       if (node.nodeType !== Node.ELEMENT_NODE || /^(SCRIPT|STYLE|BUTTON|SVG)$/.test(node.tagName)) return;
       if (node.matches('[data-testid="simpleTweet"]')) {
         const text = node.querySelector('[data-testid="tweetText"]');
-        if (text) blocks.push({ type: 'quote', embedded: true, author: clean(node.querySelector('[data-testid="User-Name"]')?.textContent || '引用发文'), runs: runsOf(text), url: statusOf(node.querySelector('time')?.closest('a')?.href)?.url || '' });
+        if (text) blocks.push({ type: 'quote', embedded: true, author: clean(node.querySelector('[data-testid="User-Name"]')?.textContent || ''), runs: runsOf(text), url: statusOf(node.querySelector('time')?.closest('a')?.href)?.url || '' });
         return;
       }
       if (node.matches('[data-testid="videoPlayer"],video')) { blocks.push({ type: 'video', url: permalink }); return; }
@@ -64,7 +64,7 @@ export function extractXPage() {
       }
       if (node.tagName === 'IMG') {
         const src = imageURL(node.currentSrc || node.src);
-        if (src) blocks.push({ type: 'image', src, alt: node.alt || '长文配图' });
+        if (src) blocks.push({ type: 'image', src, alt: node.alt || '' });
         return;
       }
       if (/^(UL|OL)$/.test(node.tagName)) {
@@ -118,7 +118,7 @@ export function extractXPage() {
     const body = text ? [{ type: 'paragraph', runs: runsOf(text) }] : [];
     own(article, '[data-testid="tweetPhoto"] img, img[src*="pbs.twimg.com/media/"]').forEach((img) => {
       const src = imageURL(img.currentSrc || img.src);
-      if (src && !body.some((block) => block.src === src)) body.push({ type: 'image', src, alt: img.alt || '发文配图' });
+      if (src && !body.some((block) => block.src === src)) body.push({ type: 'image', src, alt: img.alt || '' });
     });
     if (own(article, 'video, [data-testid="videoPlayer"]').length) body.push({ type: 'video', url: identity.url });
     const quote = article.querySelector(quoteSelector);
@@ -129,7 +129,7 @@ export function extractXPage() {
       const quotePermalink = Array.from(quote.querySelectorAll('a[href]')).find((link) => statusOf(link.href) && new URL(link.href).pathname === new URL(statusOf(link.href).url).pathname);
       const quoteIdentity = statusOf(quoteTime?.closest('a')?.href || quote.getAttribute('href') || quotePermalink?.href);
       if (quoteText) quoted = {
-        author: clean(quote.querySelector('[data-testid="User-Name"]')?.textContent || Array.from(quote.querySelectorAll('a[href]')).find((link) => clean(link.textContent) && !clean(link.textContent).startsWith('@'))?.textContent || '引用发文'),
+        author: clean(quote.querySelector('[data-testid="User-Name"]')?.textContent || Array.from(quote.querySelectorAll('a[href]')).find((link) => clean(link.textContent) && !clean(link.textContent).startsWith('@'))?.textContent || ''),
         url: quoteIdentity?.url || '',
         runs: runsOf(quoteText),
       };
@@ -162,26 +162,26 @@ export function extractXPage() {
       const authorMeta = document.querySelector('[itemprop="author"]');
       const metaName = authorMeta?.querySelector('meta[itemprop="name"]')?.content;
       const metaHandle = authorMeta?.querySelector('meta[itemprop="additionalName"]')?.content?.replace(/^@/, '');
-      root = { ...identity, handle: identity.handle || metaHandle || '', author: clean(metaName || authorNode?.textContent?.split('@')[0] || identity.handle || 'X 作者'), publishedAt: articleScope.querySelector('time')?.getAttribute('datetime') || '', title, blocks: [], quote: null, truncated: false };
+      root = { ...identity, handle: identity.handle || metaHandle || '', author: clean(metaName || authorNode?.textContent?.split('@')[0] || identity.handle || 'X'), publishedAt: articleScope.querySelector('time')?.getAttribute('datetime') || '', title, blocks: [], quote: null, truncated: false };
       posts.unshift(root);
     }
     root.title = title;
     root.blocks = readBlocks(richText, root.url);
     const cover = articleScope.querySelector('[data-testid="twitterArticleHeaderImage"] img') || Array.from((readView || articleScope).querySelectorAll('[data-testid="tweetPhoto"] img')).find((img) => !richText.contains(img));
-    if (cover && imageURL(cover.src) && !root.blocks.some((block) => block.src === imageURL(cover.src))) root.blocks.unshift({ type: 'image', src: imageURL(cover.src), alt: cover.alt || '长文封面' });
+    if (cover && imageURL(cover.src) && !root.blocks.some((block) => block.src === imageURL(cover.src))) root.blocks.unshift({ type: 'image', src: imageURL(cover.src), alt: cover.alt || '' });
     root.truncated = false;
   }
-  if (!root || !root.blocks.length) throw new Error('没有读取到当前发文正文。请打开帖子详情或长文全文，等待内容加载后重试。');
+  if (!root || !root.blocks.length) throw new Error('X_EXPORT_NO_CONTENT');
   const related = posts.filter((post) => post.id === root.id || (root.handle && post.handle.toLowerCase() === root.handle.toLowerCase()));
   const plain = root.blocks.flatMap((block) => block.runs || []).map((run) => run.text).join('');
   return {
     version: 1,
     rootId: root.id,
-    title: root.title || clean(plain.split('\n').find((line) => clean(line)) || `${root.author} 的发文`).slice(0, 72),
+    title: root.title || clean(plain.split('\n').find((line) => clean(line)) || `${root.author} · X`).slice(0, 72),
     pageUrl: root.url,
     capturedAt: new Date().toISOString(),
     kind: root.title ? 'article' : 'post',
     posts: related,
-    warnings: related.length > 1 ? ['同作者已加载的内容可能包含独立发文。请逐条核对后勾选；未加载的串文不会自动补全。'] : [],
+    warnings: related.length > 1 ? ['LOADED_POSTS_MAY_BE_UNRELATED'] : [],
   };
 }

@@ -15,7 +15,7 @@ export async function embedImages(doc, onProgress = () => {}) {
       try {
         const url = new URL(source);
         if (url.protocol !== 'https:' || url.hostname !== 'pbs.twimg.com') throw new Error('不支持的图片来源');
-        const response = await fetch(url, { credentials: 'omit', redirect: 'error', signal: AbortSignal.timeout(12000) });
+        const response = await fetch(url, { credentials: 'omit', referrerPolicy: 'no-referrer', redirect: 'error', signal: AbortSignal.timeout(12000) });
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const contentType = response.headers.get('content-type')?.split(';')[0].toLowerCase();
         if (!/^image\/(png|jpeg|webp|gif)$/.test(contentType)) throw new Error('不支持的图片格式');

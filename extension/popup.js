@@ -1,3 +1,8 @@
+import { initializeI18n, saveLanguage, t } from './lib/i18n.js';
+
+await initializeI18n();
+document.querySelector('#language').addEventListener('change', async (event) => { await saveLanguage(event.target.value); location.reload(); });
+
 import { extractXPage } from './lib/extract.js';
 
 const button = document.querySelector('#capture');
@@ -8,22 +13,22 @@ let tab;
 try {
   [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   const supported = tab?.url && /^(www\.|mobile\.)?(x\.com|twitter\.com)$/.test(new URL(tab.url).hostname);
-  document.querySelector('#site-status').textContent = supported ? 'X 页面 · 读取当前账号可见的内容' : '请先登录 X，并打开一篇帖子或长文';
+  document.querySelector('#site-status').textContent = supported ? t('xPageReady') : t('openXFirst');
   button.disabled = !supported;
 } catch {
-  document.querySelector('#site-status').textContent = '请在 Chrome 扩展中使用，或体验示例';
+  document.querySelector('#site-status').textContent = t('extensionOnly');
 }
 
 button.addEventListener('click', async () => {
   button.disabled = true;
-  label.textContent = '正在读取…';
+  label.textContent = t('capturing');
   status.textContent = '';
   status.className = 'status';
   try {
     const [result] = await chrome.scripting.executeScript({ target: { tabId: tab.id }, func: extractXPage });
     const doc = result?.result;
-    if (!doc?.posts?.length) throw new Error('没有读取到发文，请展开正文后重试。');
-    if (JSON.stringify(doc).length > 2_000_000) throw new Error('当前内容过大，请减少页面已加载的发文后重试。');
+    if (!doc?.posts?.length) throw new Error(t('noContent'));
+    if (JSON.stringify(doc).length > 2_000_000) throw new Error(t('contentTooLarge'));
     const records = await chrome.storage.session.get(null);
     const stale = Object.entries(records).filter(([key, value]) => key.startsWith('doc:') && Date.now() - value.createdAt > 24 * 60 * 60 * 1000).map(([key]) => key);
     if (stale.length) await chrome.storage.session.remove(stale);
@@ -33,8 +38,8 @@ button.addEventListener('click', async () => {
     window.close();
   } catch (error) {
     status.className = 'status error';
-    status.textContent = error.message.includes('Cannot access') ? '当前页面无法读取，请刷新 X 页面后重试。' : error.message;
+    status.textContent = error.message.includes('Cannot access') ? t('captureDenied') : error.message.includes('X_EXPORT_NO_CONTENT') ? t('noContent') : [t('noContent'), t('contentTooLarge')].includes(error.message) ? error.message : t('captureFailed');
     button.disabled = false;
-    label.textContent = '重新读取';
+    label.textContent = t('captureRetry');
   }
 });

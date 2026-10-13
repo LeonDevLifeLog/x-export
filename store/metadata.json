@@ -1,0 +1,41 @@
+{
+  "version": "1.1.0",
+  "defaultLocale": "en",
+  "categorySuggestion": "Tools",
+  "price": "Free",
+  "singlePurpose": {
+    "en": "Export the X posts and articles that the user chooses from their already-loaded, signed-in X page into Markdown, standalone HTML, or PDF through Chrome printing.",
+    "zh_CN": "将用户在已登录 X 页面中主动选择的已加载帖子和长文导出为 Markdown、独立 HTML，或通过 Chrome 打印保存 PDF。"
+  },
+  "remoteCode": false,
+  "publisher": "LeonDevLifeLog",
+  "privacyPolicyUrl": null,
+  "supportUrl": null,
+  "homepageUrl": null,
+  "locales": {
+    "en": {
+      "name": "X Export — Save posts as MD, HTML & PDF",
+      "shortDescription": "Export X posts and articles to Markdown, styled offline HTML, or PDF via printing. Works with your signed-in X page.",
+      "detailedDescriptionFile": "listing/en.txt",
+      "screenshots": [
+        "assets/en/01-paper.png",
+        "assets/en/01-minimal.png",
+        "assets/en/01-midnight.png",
+        "assets/en/02-markdown.png",
+        "assets/en/03-help.png"
+      ]
+    },
+    "zh_CN": {
+      "name": "X Export · 发文留存",
+      "shortDescription": "将已登录 X 页面中的帖子和长文导出为 Markdown、精美离线 HTML，或通过打印保存 PDF。",
+      "detailedDescriptionFile": "listing/zh_CN.txt",
+      "screenshots": [
+        "assets/zh_CN/01-paper.png",
+        "assets/zh_CN/01-minimal.png",
+        "assets/zh_CN/01-midnight.png",
+        "assets/zh_CN/02-markdown.png",
+        "assets/zh_CN/03-help.png"
+      ]
+    }
+  }
+}

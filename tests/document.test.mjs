@@ -1,3 +1,6 @@
+import { readFile } from 'node:fs/promises';
+import { configureI18n } from '../extension/lib/i18n.js';
+configureI18n('zh-CN', JSON.parse(await readFile(new URL('../extension/_locales/zh_CN/messages.json', import.meta.url))));
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { toMarkdown, toHTML, renderDocument, normalizeOptions, fileName, safeURL } from '../extension/lib/document.js';
@@ -64,7 +67,7 @@ test('unexpected option values and unsafe filenames cannot alter markup', () => 
   assert.equal(normalizeOptions({ fontSize: '19' }).fontSize, 19);
   assert.equal(safeURL('data:text/html,<script>alert(1)</script>', true), '');
   assert.equal(fileName('../ 标题:示例? /', 'md'), '.. 标题示例.md');
-  assert.equal(fileName('... ', 'html'), 'X 发文.html');
+  assert.equal(fileName('... ', 'html'), 'X Export.html');
 });
 
 test('a date label from semantic X markup is escaped as page data', () => {
