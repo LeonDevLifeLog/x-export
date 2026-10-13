@@ -1,6 +1,6 @@
 # X Export 1.1.0 · Chrome Web Store MVP
 
-本版完成扩展优化和提交材料准备。按发布者后续要求配置 GitHub Pages 发布政策及支持页面，支持联系方式采用公开仓库的 GitHub Issues。尚未提交商店。
+本版完成扩展优化和提交材料准备。按发布者后续要求，政策及支持页面已发布到 GitHub Pages，支持联系方式采用公开仓库的 GitHub Issues。匿名 HTTPS 访问及页面渲染验证通过；尚未提交商店。
 
 ## 用户可见变化
 

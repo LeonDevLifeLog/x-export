@@ -30,6 +30,17 @@ PDF 文件内容解析确认：普通样例为 2 页，50 段分页样例为 6 �
 - store:check 通过：版本一致、ZIP 根 manifest、文件树及内容与源码一致、必需/可选权限白名单、语言消息引用、素材尺寸、截图源文件摘要、隐私正文及网站内链一致。报告在 dist/webstore-check.json。
 - 公开政策及支持 URL 已按后续发布要求填写到 metadata，GitHub Pages 部署结果单独核对。开发者账户、审核 X 测试账号（如被要求）、个人 Chrome 的线上完整导出与未覆盖的系统交互仍为提交前外部步骤。未上传商店、未提交审核、未声称获得批准。
 
+## GitHub Pages 公开发布
+
+2026-10-13 18:16（Asia/Shanghai）确认：仓库公开且 Issues 可用，GitHub Pages 使用 workflow 发布、启用 HTTPS。部署提交为 `4534a82430c9fcd6a6944a0be6fa914bda3940e3`，[部署任务](https://github.com/LeonDevLifeLog/x-export/actions/runs/38382002477)结果为 success。部署目录仅为 `store/site`，包含首页、双语政策、支持页和样式；扩展、测试与 artifacts 不在该部署中。
+
+- [公开政策](https://leondevlifelog.github.io/x-export/privacy.html)、首页、支持页和 CSS 的匿名 HTTPS 请求均为 200；逐文件字节与本地发布源相同。
+- 公共政策正文与扩展随包政策一致，仅帮助导航指向网站支持页。联系入口已更新为公开 GitHub Issues，匿名请求为 200。
+- 隔离且未登录的 Chrome 检查三页实际渲染和站内链接。英文与简体中文政策段落均存在，375px 下无横向溢出，无 JavaScript 错误；查看了桌面和中文窄屏截图。
+- `store/metadata.json` 的 policy/support/homepage URL 已补全；扩展包、素材源摘要和移交包已重新生成，`store:check` 通过。原有 9 项单元、19 项浏览器及原生操作记录保留其原始验证范围；这次仅改政策联系入口与发布材料，没有改导出执行代码。
+
+匿名 HTTP 比对记录在 `artifacts/pages-http-verification.json`，浏览器记录在 `artifacts/pages-browser-verification.json`，公开页面截图在 `artifacts/pages-*-desktop.png` / `pages-*-mobile.png`。页面发布是网站托管完成的证据，不代表 Chrome Web Store 已提交或获批。
+
 ## 原生工具栏、权限与 PDF 保存
 
 在 macOS arm64 的 Chrome for Testing 148.0.7778.96 中，使用新建的隔离 profile 加载发行扩展。逐文件确认其与 `dist/x-export` 相同，没有修改 manifest，也没有替代权限或 tabs API。X 页面和图片 CDN 响应使用构造 fixture；未使用个人浏览器资料或真实账号。
