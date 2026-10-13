@@ -1,6 +1,6 @@
 # Chrome Web Store 提交指南 · X Export 1.1.0
 
-本目录是提交材料，不代表已向商店提交。源码仓库现已公开，政策及支持页面通过 GitHub Pages 发布。
+本目录保留提交与更新材料。2026-10-13 发布者提供了 [Chrome Web Store 条目地址](https://chromewebstore.google.com/detail/ndhnmjaofmpjpeminbnmgachmmdebeag)，并确认当前审核中；该状态来自发布者，本地检查不代表商店获批。源码仓库公开，政策及支持页面通过 GitHub Pages 发布。
 
 ## 文件对应关系
 
@@ -25,7 +25,7 @@
 
 - Privacy policy URL：[https://leondevlifelog.github.io/x-export/privacy.html](https://leondevlifelog.github.io/x-export/privacy.html)。包含英文与简体中文。
 - Support URL：[https://leondevlifelog.github.io/x-export/support.html](https://leondevlifelog.github.io/x-export/support.html)。支持入口为公开仓库的 [GitHub Issues](https://github.com/LeonDevLifeLog/x-export/issues)。
-- Homepage URL：[https://leondevlifelog.github.io/x-export/](https://leondevlifelog.github.io/x-export/)。扩展尚未上架，首页没有虚构商店链接。
+- Homepage URL：[https://leondevlifelog.github.io/x-export/](https://leondevlifelog.github.io/x-export/)。首页已提供发布者给出的真实商店链接，并标注“审核中”。
 
 上述网址已写入 `metadata.json`。发布源为 `site/`，由仓库 `.github/workflows/pages.yml` 自动部署；公开政策与扩展随包政策正文一致。提交前再在未登录浏览器检查这些 HTTPS 页面。网站发布不代表商店审核通过。
 
@@ -33,7 +33,7 @@
 
 - 注册/确认 Chrome Web Store 开发者账户、一次性注册费用、二步验证、联系邮箱及后台要求的身份/地址信息。这些账户状态尚未检查。
 - 如审核要求登录凭据，在审核专用字段提供独立 X 测试账号。代码无需开发者 API Key，但真实页面读取需 X 登录态。
-- 上架后在首页添加真实商店链接；若希望使用支持邮箱，可同时更新支持页与政策联系段落。
+- 审核通过并确认公开分发后，更新 README 与首页的审核状态；若希望使用支持邮箱，可同时更新支持页与政策联系段落。
 
 ## 打包与检查
 

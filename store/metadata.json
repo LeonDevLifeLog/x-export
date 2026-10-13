@@ -12,6 +12,8 @@
   "privacyPolicyUrl": "https://leondevlifelog.github.io/x-export/privacy.html",
   "supportUrl": "https://leondevlifelog.github.io/x-export/support.html",
   "homepageUrl": "https://leondevlifelog.github.io/x-export/",
+  "chromeWebStoreUrl": "https://chromewebstore.google.com/detail/ndhnmjaofmpjpeminbnmgachmmdebeag",
+  "storeStatus": "pending_review",
   "locales": {
     "en": {
       "name": "X Export — Save posts as MD, HTML & PDF",
