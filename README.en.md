@@ -21,6 +21,8 @@ Sign in to X in this Chrome browser. Open a post detail or complete article, exp
 
 Only already-loaded content visible to your account is read. The current post is selected by default; other loaded posts by the same author require manual review and may be unrelated. No automatic scrolling, hidden API access, access-control bypass or video download. Quoted images are excluded. X page changes can affect extraction.
 
+Use About at the bottom of the popup to view the developer introduction, GitHub profile and project repository links.
+
 ## Privacy and permissions
 
 Required: `activeTab`, `scripting`, `storage`, `downloads`. Optional: `https://pbs.twimg.com/*`, requested when embedding images in an HTML/PDF export. Decline to keep text and original-image links instead. Markdown never requests image access.

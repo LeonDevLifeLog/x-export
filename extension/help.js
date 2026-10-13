@@ -16,3 +16,6 @@ clear.addEventListener('click', async () => {
   } catch { status.className = 'status error'; status.textContent = t('clearFailed'); }
   finally { clear.disabled = false; }
 });
+
+// Localization changes the page height after the initial fragment navigation.
+if (location.hash === '#about-developer') document.querySelector('#about-developer').scrollIntoView({ block: 'start' });

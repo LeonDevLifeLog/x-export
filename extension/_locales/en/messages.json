@@ -381,6 +381,21 @@
   "helpSupport": {
     "message": "Use the support contact on the Chrome Web Store listing after release. Include the extension version, Chrome version and a public example URL. Never send passwords, cookies, tokens or private exported content."
   },
+  "aboutLink": {
+    "message": "About"
+  },
+  "helpAboutTitle": {
+    "message": "About the developer"
+  },
+  "helpAbout": {
+    "message": "Developed and maintained by LeonDevLifeLog."
+  },
+  "githubProfileLink": {
+    "message": "GitHub profile ↗"
+  },
+  "githubRepoLink": {
+    "message": "Project repository ↗"
+  },
   "versionLabel": {
     "message": "Version $1",
     "description": "Positional values are supplied by the UI; keep $1, $2 and $3 unchanged."

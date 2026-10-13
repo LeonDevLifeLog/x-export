@@ -135,6 +135,7 @@ select { min-height: 34px; max-width: 130px; border: 1px solid var(--border); bo
 .help-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 .help-steps section { padding: 20px; }
 .help-intro { max-width: 680px; margin-bottom: 30px; }
+.developer-links { display: flex; flex-wrap: wrap; gap: 10px 24px; }
 .clear-area { margin-top: 24px; }
 .help-page footer { color: var(--muted); font-size: 12px; }
 .app-header > .utility-row { margin-bottom: 0; }

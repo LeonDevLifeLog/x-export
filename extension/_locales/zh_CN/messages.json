@@ -381,6 +381,21 @@
   "helpSupport": {
     "message": "发布后可通过 Chrome 应用商店条目的支持联系方式反馈。请提供扩展版本、Chrome 版本和公开样例 URL，不要发送密码、Cookie、令牌或私密导出内容。"
   },
+  "aboutLink": {
+    "message": "关于"
+  },
+  "helpAboutTitle": {
+    "message": "关于开发者"
+  },
+  "helpAbout": {
+    "message": "开发与维护：LeonDevLifeLog。"
+  },
+  "githubProfileLink": {
+    "message": "GitHub 主页 ↗"
+  },
+  "githubRepoLink": {
+    "message": "项目仓库 ↗"
+  },
   "versionLabel": {
     "message": "版本 $1",
     "description": "Positional values are supplied by the UI; keep $1, $2 and $3 unchanged."

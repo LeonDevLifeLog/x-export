@@ -41,6 +41,10 @@ PDF 文件内容解析确认：普通样例为 2 页，50 段分页样例为 6 �
 
 匿名 HTTP 比对记录在 `artifacts/pages-http-verification.json`，浏览器记录在 `artifacts/pages-browser-verification.json`，公开页面截图在 `artifacts/pages-*-desktop.png` / `pages-*-mobile.png`。页面发布是网站托管完成的证据，不代表 Chrome Web Store 已提交或获批。
 
+## 开发者介绍
+
+后续“关于开发者”界面变更：隔离 Chrome 加载发行扩展，分别用英文及简体中文从弹窗“关于”打开 `help.html#about-developer`。GitHub 主页与仓库的匿名请求均为 200，外部链接使用新标签页及 `noopener noreferrer`。376×600 弹窗与 375px 帮助页无横向溢出，无 JavaScript 错误，查看了实际界面截图。记录为 `artifacts/about-verification.json`；本次没有改导出逻辑，原有导出验证保留原始范围。
+
 ## 原生工具栏、权限与 PDF 保存
 
 在 macOS arm64 的 Chrome for Testing 148.0.7778.96 中，使用新建的隔离 profile 加载发行扩展。逐文件确认其与 `dist/x-export` 相同，没有修改 manifest，也没有替代权限或 tabs API。X 页面和图片 CDN 响应使用构造 fixture；未使用个人浏览器资料或真实账号。
